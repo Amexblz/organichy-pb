@@ -14,43 +14,53 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0; // dynamic data
 
 export default async function HomePage() {
-  // Fetch site settings
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: "default-settings" },
-  });
+  let settings: any = null;
+  let banners: any[] = [];
+  let categories: any[] = [];
+  let advertisementVideos: any[] = [];
+  let allProducts: any[] = [];
 
-  // Fetch active banners
-  const banners = await prisma.banner.findMany({
-    where: { isActive: true },
-    orderBy: { displayOrder: "asc" },
-  });
+  try {
+    // Fetch site settings
+    settings = await prisma.siteSettings.findUnique({
+      where: { id: "default-settings" },
+    });
 
-  // Fetch active categories
-  const categories = await prisma.category.findMany({
-    where: { active: true },
-    orderBy: { displayOrder: "asc" },
-  });
+    // Fetch active banners
+    banners = await prisma.banner.findMany({
+      where: { isActive: true },
+      orderBy: { displayOrder: "asc" },
+    });
 
-  // Fetch active advertisement videos
-  const advertisementVideos = await prisma.advertisementVideo.findMany({
-    where: { active: true },
-    orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
-  });
+    // Fetch active categories
+    categories = await prisma.category.findMany({
+      where: { active: true },
+      orderBy: { displayOrder: "asc" },
+    });
 
-  // Fetch products with variants and images
-  const allProducts = await prisma.product.findMany({
-    where: { active: true },
-    include: {
-      variants: {
-        where: { active: true },
-        orderBy: { price: "asc" },
+    // Fetch active advertisement videos
+    advertisementVideos = await prisma.advertisementVideo.findMany({
+      where: { active: true },
+      orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
+    });
+
+    // Fetch products with variants and images
+    allProducts = await prisma.product.findMany({
+      where: { active: true },
+      include: {
+        variants: {
+          where: { active: true },
+          orderBy: { price: "asc" },
+        },
+        images: {
+          orderBy: { displayOrder: "asc" },
+        },
       },
-      images: {
-        orderBy: { displayOrder: "asc" },
-      },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("HomePage Database SSR error (verify DATABASE_URL is configured):", error);
+  }
 
   const bestSellers = allProducts.filter((p) => p.isBestseller);
   const chocolateProducts = allProducts.filter((p) => p.isChocolate);

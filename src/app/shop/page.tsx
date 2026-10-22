@@ -23,73 +23,81 @@ interface ShopPageProps {
 }
 
 export default async function ShopPage({ searchParams }: ShopPageProps) {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: "default-settings" },
-  });
+  let settings: any = null;
+  let categories: any[] = [];
+  let products: any[] = [];
 
-  const categories = await prisma.category.findMany({
-    where: { active: true },
-    orderBy: { displayOrder: "asc" },
-  });
+  try {
+    settings = await prisma.siteSettings.findUnique({
+      where: { id: "default-settings" },
+    });
 
-  // Build filter query
-  const whereClause: any = { active: true };
+    categories = await prisma.category.findMany({
+      where: { active: true },
+      orderBy: { displayOrder: "asc" },
+    });
 
-  if (searchParams.category) {
-    const matchedCategory = categories.find((c) => c.slug === searchParams.category);
-    if (matchedCategory) {
-      whereClause.categoryId = matchedCategory.id;
+    // Build filter query
+    const whereClause: any = { active: true };
+
+    if (searchParams.category) {
+      const matchedCategory = categories.find((c) => c.slug === searchParams.category);
+      if (matchedCategory) {
+        whereClause.categoryId = matchedCategory.id;
+      }
     }
-  }
 
-  if (searchParams.flavor) {
-    whereClause.flavor = { contains: searchParams.flavor };
-  }
+    if (searchParams.flavor) {
+      whereClause.flavor = { contains: searchParams.flavor };
+    }
 
-  if (searchParams.texture) {
-    whereClause.texture = { contains: searchParams.texture };
-  }
+    if (searchParams.texture) {
+      whereClause.texture = { contains: searchParams.texture };
+    }
 
-  if (searchParams.search) {
-    whereClause.OR = [
-      { name: { contains: searchParams.search } },
-      { description: { contains: searchParams.search } },
-      { shortDescription: { contains: searchParams.search } },
-    ];
-  }
+    if (searchParams.search) {
+      whereClause.OR = [
+        { name: { contains: searchParams.search } },
+        { description: { contains: searchParams.search } },
+        { shortDescription: { contains: searchParams.search } },
+      ];
+    }
 
-  if (searchParams.minPrice || searchParams.maxPrice) {
-    whereClause.basePrice = {
-      ...(searchParams.minPrice && { gte: parseFloat(searchParams.minPrice) }),
-      ...(searchParams.maxPrice && { lte: parseFloat(searchParams.maxPrice) }),
-    };
-  }
+    if (searchParams.minPrice || searchParams.maxPrice) {
+      whereClause.basePrice = {
+        ...(searchParams.minPrice && { gte: parseFloat(searchParams.minPrice) }),
+        ...(searchParams.maxPrice && { lte: parseFloat(searchParams.maxPrice) }),
+      };
+    }
 
-  let orderByClause: any = { createdAt: "desc" };
-  if (searchParams.sort === "price-low") {
-    orderByClause = { basePrice: "asc" };
-  } else if (searchParams.sort === "price-high") {
-    orderByClause = { basePrice: "desc" };
-  } else if (searchParams.sort === "rating") {
-    orderByClause = { rating: "desc" };
-  } else if (searchParams.sort === "bestseller") {
-    orderByClause = [{ isBestseller: "desc" }, { reviewCount: "desc" }];
-  }
+    let orderByClause: any = { createdAt: "desc" };
+    if (searchParams.sort === "price-low") {
+      orderByClause = { basePrice: "asc" };
+    } else if (searchParams.sort === "price-high") {
+      orderByClause = { basePrice: "desc" };
+    } else if (searchParams.sort === "rating") {
+      orderByClause = { rating: "desc" };
+    } else if (searchParams.sort === "bestseller") {
+      orderByClause = [{ isBestseller: "desc" }, { reviewCount: "desc" }];
+    }
 
-  const products = await prisma.product.findMany({
-    where: whereClause,
-    include: {
-      category: true,
-      variants: {
-        where: { active: true },
-        orderBy: { price: "asc" },
+    products = await prisma.product.findMany({
+      where: whereClause,
+      include: {
+        category: true,
+        variants: {
+          where: { active: true },
+          orderBy: { price: "asc" },
+        },
+        images: {
+          orderBy: { displayOrder: "asc" },
+        },
       },
-      images: {
-        orderBy: { displayOrder: "asc" },
-      },
-    },
-    orderBy: orderByClause,
-  });
+      orderBy: orderByClause,
+    });
+  } catch (error) {
+    console.error("ShopPage Database SSR error:", error);
+  }
 
   const hasActiveFilters = Boolean(
     searchParams.category ||

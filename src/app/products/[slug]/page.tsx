@@ -29,45 +29,54 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: "default-settings" },
-  });
+  let settings: any = null;
+  let product: any = null;
+  let relatedProducts: any[] = [];
 
-  const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
-    include: {
-      category: true,
-      variants: {
-        where: { active: true },
-        orderBy: { price: "asc" },
+  try {
+    settings = await prisma.siteSettings.findUnique({
+      where: { id: "default-settings" },
+    });
+
+    product = await prisma.product.findUnique({
+      where: { slug: params.slug },
+      include: {
+        category: true,
+        variants: {
+          where: { active: true },
+          orderBy: { price: "asc" },
+        },
+        images: {
+          orderBy: { displayOrder: "asc" },
+        },
+        reviews: {
+          where: { isApproved: true },
+          orderBy: { createdAt: "desc" },
+        },
       },
-      images: {
-        orderBy: { displayOrder: "asc" },
-      },
-      reviews: {
-        where: { isApproved: true },
-        orderBy: { createdAt: "desc" },
-      },
-    },
-  });
+    });
+
+    if (product && product.active) {
+      relatedProducts = await prisma.product.findMany({
+        where: {
+          active: true,
+          categoryId: product.categoryId,
+          id: { not: product.id },
+        },
+        include: {
+          variants: { where: { active: true } },
+          images: { orderBy: { displayOrder: "asc" } },
+        },
+        take: 4,
+      });
+    }
+  } catch (error) {
+    console.error("ProductPage Database SSR error:", error);
+  }
 
   if (!product || !product.active) {
     notFound();
   }
-
-  // Related products in same category
-  const relatedProducts = await prisma.product.findMany({
-    where: {
-      active: true,
-      categoryId: product.categoryId,
-      id: { not: product.id },
-    },
-    include: {
-      variants: { where: { active: true } },
-      images: { orderBy: { displayOrder: "asc" } },
-    },
-    take: 4,
-  });
 
   return (
     <div className="min-h-screen bg-stone-50 flex flex-col font-sans">
