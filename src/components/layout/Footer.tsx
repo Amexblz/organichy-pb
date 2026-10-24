@@ -19,34 +19,34 @@ export default function Footer() {
     <footer className="bg-stone-950 text-stone-300 pt-16 pb-12 border-t border-stone-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Trust Pillars Banner */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 border-b border-stone-800 text-center">
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3">
-              <Award className="w-6 h-6" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pb-8 sm:pb-12 border-b border-stone-800 text-center">
+          <div className="flex flex-col items-center p-2">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-2 sm:mb-3">
+              <Award className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h4 className="font-extrabold text-white text-sm">32G HIGH PROTEIN</h4>
-            <p className="text-xs text-stone-400 mt-1">Highest protein per 100g in its class</p>
+            <h4 className="font-extrabold text-white text-xs sm:text-sm">32G HIGH PROTEIN</h4>
+            <p className="text-[11px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1">Highest protein per 100g in its class</p>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3">
-              <ShieldCheck className="w-6 h-6" />
+          <div className="flex flex-col items-center p-2">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-2 sm:mb-3">
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h4 className="font-extrabold text-white text-sm">ZERO PALM OIL</h4>
-            <p className="text-xs text-stone-400 mt-1">No hydrogenated fats or cheap fillers</p>
+            <h4 className="font-extrabold text-white text-xs sm:text-sm">ZERO PALM OIL</h4>
+            <p className="text-[11px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1">No hydrogenated fats or cheap fillers</p>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3">
-              <CheckCircle2 className="w-6 h-6" />
+          <div className="flex flex-col items-center p-2">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-2 sm:mb-3">
+              <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h4 className="font-extrabold text-white text-sm">100% ROASTED PEANUTS</h4>
-            <p className="text-xs text-stone-400 mt-1">Grade-A runner peanuts from Saurashtra</p>
+            <h4 className="font-extrabold text-white text-xs sm:text-sm">100% ROASTED PEANUTS</h4>
+            <p className="text-[11px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1">Grade-A runner peanuts from Saurashtra</p>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-3">
-              <Heart className="w-6 h-6" />
+          <div className="flex flex-col items-center p-2">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-2 sm:mb-3">
+              <Heart className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <h4 className="font-extrabold text-white text-sm">FREE DELIVERY ₹{freeThreshold}+</h4>
-            <p className="text-xs text-stone-400 mt-1">Fast delivery across 19,000+ PIN codes</p>
+            <h4 className="font-extrabold text-white text-xs sm:text-sm">FREE DELIVERY ₹{freeThreshold}+</h4>
+            <p className="text-[11px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1">Fast delivery across 19,000+ PIN codes</p>
           </div>
         </div>
 

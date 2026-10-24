@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
@@ -14,6 +14,13 @@ const outfit = Outfit({
   variable: "--font-outfit",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#0c0a09",
+};
 
 export const metadata: Metadata = {
   title: "Organichy Peanut Butter | India's #1 32g High Protein Peanut Butter",

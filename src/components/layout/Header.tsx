@@ -84,8 +84,8 @@ export default function Header({
       )}
 
       {/* 2. Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -93,17 +93,17 @@ export default function Header({
             className="md:hidden p-2 rounded-lg text-stone-800 hover:bg-stone-100 transition-colors"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
 
           {/* Brand Logo */}
           <Link href="/" className="flex items-center shrink-0 group py-1" aria-label="Organichy Home">
-            <div className="relative h-12 sm:h-14 md:h-16 w-40 sm:w-48 md:w-56 transition-transform duration-300 group-hover:scale-105">
+            <div className="relative h-10 sm:h-14 md:h-16 w-32 sm:w-48 md:w-56 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src={siteSettings.logoUrl || "/images/branding/logo.png"}
                 alt={siteSettings.siteName || "Organichy Peanut Butter"}
                 fill
-                sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 224px"
+                sizes="(max-width: 640px) 130px, (max-width: 768px) 192px, 224px"
                 className="object-contain object-left"
                 priority
               />
@@ -152,14 +152,14 @@ export default function Header({
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-4">
             {/* Wishlist */}
             <Link
               href="/account/wishlist"
-              className="relative p-2.5 rounded-full text-stone-700 hover:text-amber-600 hover:bg-amber-50 transition-colors"
+              className="relative p-2 sm:p-2.5 rounded-full text-stone-700 hover:text-amber-600 hover:bg-amber-50 transition-colors"
               aria-label="Wishlist"
             >
-              <Heart className="w-5 h-5" />
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
               {wishlist.length > 0 && (
                 <span className="absolute top-1 right-1 bg-amber-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {wishlist.length}
@@ -173,13 +173,13 @@ export default function Header({
                 <div>
                   <button
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center gap-1.5 p-2 rounded-full hover:bg-stone-100 text-stone-800 transition-colors"
+                    className="flex items-center gap-1.5 p-1.5 sm:p-2 rounded-full hover:bg-stone-100 text-stone-800 transition-colors"
                     aria-label="Customer Profile"
                   >
-                    <div className="w-7 h-7 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center">
                       {currentUser.name.charAt(0).toUpperCase()}
                     </div>
-                    <ChevronDown className="w-3.5 h-3.5 text-stone-500" />
+                    <ChevronDown className="w-3.5 h-3.5 text-stone-500 hidden sm:block" />
                   </button>
 
                   {userMenuOpen && (
@@ -230,10 +230,10 @@ export default function Header({
               ) : (
                 <Link
                   href="/login"
-                  className="flex items-center gap-1.5 p-2 rounded-full hover:bg-stone-100 text-stone-700 hover:text-amber-600 transition-colors"
+                  className="flex items-center gap-1.5 p-1.5 sm:p-2 rounded-full hover:bg-stone-100 text-stone-700 hover:text-amber-600 transition-colors"
                   aria-label="Login or Sign Up"
                 >
-                  <User className="w-5 h-5" />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="hidden sm:inline text-xs font-bold">LOGIN</span>
                 </Link>
               )}
@@ -243,14 +243,14 @@ export default function Header({
             <button
               type="button"
               onClick={() => setIsCartOpen(true)}
-              className="flex items-center gap-2 bg-stone-900 hover:bg-amber-600 text-white px-3 sm:px-4 py-2.5 rounded-full transition-all shadow-md group"
+              className="flex items-center gap-1.5 sm:gap-2 bg-stone-900 hover:bg-amber-600 text-white px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-full transition-all shadow-md group shrink-0"
               aria-label="View Shopping Cart"
             >
-              <ShoppingCart className="w-4 h-4 transition-transform group-hover:scale-110" />
-              <span className="font-extrabold text-xs sm:text-sm">
+              <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:scale-110" />
+              <span className="font-extrabold text-xs sm:text-sm hidden xs:inline">
                 CART
               </span>
-              <span className="bg-amber-500 text-stone-950 font-black text-xs px-2 py-0.5 rounded-full shadow-inner">
+              <span className="bg-amber-500 text-stone-950 font-black text-xs px-1.5 sm:px-2 py-0.5 rounded-full shadow-inner">
                 {totalCartCount}
               </span>
             </button>

@@ -113,48 +113,48 @@ export default function RazorpayModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-stone-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-stone-950/80 backdrop-blur-sm animate-fade-in overflow-y-auto">
+      <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-stone-200 my-auto">
         {/* Top Header - Razorpay Navy Brand */}
-        <div className="bg-[#0c2340] text-white p-5 flex items-center justify-between border-b border-[#13335c]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/40 p-1.5 flex items-center justify-center">
+        <div className="bg-[#0c2340] text-white p-3.5 sm:p-5 flex items-center justify-between border-b border-[#13335c]">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-500/10 border border-amber-400/40 p-1 flex items-center justify-center shrink-0">
               <Image
                 src="/images/branding/logo.png"
                 alt="Organichy"
-                width={80}
-                height={28}
+                width={70}
+                height={24}
                 className="object-contain"
               />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-extrabold text-sm text-white tracking-wide">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <h3 className="font-extrabold text-xs sm:text-sm text-white tracking-wide">
                   Organichy Peanut Butter
                 </h3>
-                <span className="bg-amber-400 text-stone-950 font-black text-[9px] px-1.5 py-0.5 rounded tracking-wider uppercase">
+                <span className="bg-amber-400 text-stone-950 font-black text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5 rounded tracking-wider uppercase">
                   DEMO API
                 </span>
               </div>
-              <p className="text-[11px] text-stone-300">
+              <p className="text-[10px] sm:text-[11px] text-stone-300 truncate max-w-[160px] sm:max-w-none">
                 Order #{orderNumber} • {prefill?.contact || prefill?.email}
               </p>
             </div>
           </div>
 
-          <div className="text-right flex items-center gap-3">
+          <div className="text-right flex items-center gap-2 sm:gap-3">
             <div>
-              <span className="text-[10px] text-stone-400 block uppercase font-bold tracking-wider">
-                Amount to Pay
+              <span className="text-[9px] sm:text-[10px] text-stone-400 block uppercase font-bold tracking-wider">
+                Pay
               </span>
-              <span className="text-xl font-black text-amber-400">
+              <span className="text-base sm:text-xl font-black text-amber-400">
                 ₹{amount.toFixed(2)}
               </span>
             </div>
             <button
               onClick={onClose}
               disabled={processing}
-              className="p-1.5 rounded-full hover:bg-white/10 text-stone-400 hover:text-white transition-colors disabled:opacity-40"
+              className="p-1 rounded-full hover:bg-white/10 text-stone-400 hover:text-white transition-colors disabled:opacity-40"
               aria-label="Close Razorpay checkout"
             >
               <X className="w-5 h-5" />
@@ -163,14 +163,14 @@ export default function RazorpayModal({
         </div>
 
         {/* Test Notice Banner */}
-        <div className="bg-amber-50 border-b border-amber-200/80 px-4 py-2 flex items-center justify-between text-[11px] text-amber-900 font-semibold">
-          <div className="flex items-center gap-1.5">
+        <div className="bg-amber-50 border-b border-amber-200/80 px-3 sm:px-4 py-2 flex items-center justify-between text-[10px] sm:text-[11px] text-amber-900 font-semibold gap-2">
+          <div className="flex items-center gap-1.5 truncate">
             <Info className="w-3.5 h-3.5 text-amber-700 shrink-0" />
-            <span>
-              Razorpay Sandbox Active ({process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_TqvEEanuQFa49Y"}): Use pre-filled credentials to test payments safely.
+            <span className="truncate">
+              Razorpay Sandbox: Safe test credentials pre-filled.
             </span>
           </div>
-          <span className="bg-amber-200 text-amber-950 px-2 py-0.5 rounded text-[10px] font-black">
+          <span className="bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded text-[9px] font-black shrink-0">
             TEST MODE
           </span>
         </div>
@@ -193,60 +193,60 @@ export default function RazorpayModal({
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-12 min-h-[340px]">
+          <div className="flex flex-col md:grid md:grid-cols-12 min-h-[340px]">
             {/* Left Tabs */}
-            <div className="md:col-span-5 bg-stone-50 border-r border-stone-200 p-2 space-y-1 text-xs font-bold text-stone-700">
+            <div className="md:col-span-5 bg-stone-50 border-b md:border-b-0 md:border-r border-stone-200 p-2 flex md:flex-col gap-1 overflow-x-auto md:overflow-x-visible text-xs font-bold text-stone-700 scrollbar-none">
               <button
                 type="button"
                 onClick={() => setActiveTab("UPI")}
-                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all ${
+                className={`flex-1 md:w-full flex items-center justify-center md:justify-start gap-2 px-3 py-2.5 rounded-xl transition-all shrink-0 whitespace-nowrap ${
                   activeTab === "UPI"
                     ? "bg-[#0c2340] text-white shadow-sm"
-                    : "hover:bg-stone-200 text-stone-700"
+                    : "hover:bg-stone-200 text-stone-700 bg-white md:bg-transparent"
                 }`}
               >
                 <Smartphone className="w-4 h-4" />
-                <span className="flex-1 text-left">UPI / QR</span>
-                <span className="text-[10px] font-extrabold text-amber-400">FAST</span>
+                <span className="text-left">UPI / QR</span>
+                <span className="text-[10px] font-extrabold text-amber-400 hidden sm:inline">FAST</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveTab("CARD")}
-                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all ${
+                className={`flex-1 md:w-full flex items-center justify-center md:justify-start gap-2 px-3 py-2.5 rounded-xl transition-all shrink-0 whitespace-nowrap ${
                   activeTab === "CARD"
                     ? "bg-[#0c2340] text-white shadow-sm"
-                    : "hover:bg-stone-200 text-stone-700"
+                    : "hover:bg-stone-200 text-stone-700 bg-white md:bg-transparent"
                 }`}
               >
                 <CreditCard className="w-4 h-4" />
-                <span className="flex-1 text-left">Cards (Credit/Debit)</span>
+                <span className="text-left">Cards</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveTab("NETBANKING")}
-                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all ${
+                className={`flex-1 md:w-full flex items-center justify-center md:justify-start gap-2 px-3 py-2.5 rounded-xl transition-all shrink-0 whitespace-nowrap ${
                   activeTab === "NETBANKING"
                     ? "bg-[#0c2340] text-white shadow-sm"
-                    : "hover:bg-stone-200 text-stone-700"
+                    : "hover:bg-stone-200 text-stone-700 bg-white md:bg-transparent"
                 }`}
               >
                 <Building2 className="w-4 h-4" />
-                <span className="flex-1 text-left">Net Banking</span>
+                <span className="text-left">NetBanking</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveTab("WALLET")}
-                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition-all ${
+                className={`flex-1 md:w-full flex items-center justify-center md:justify-start gap-2 px-3 py-2.5 rounded-xl transition-all shrink-0 whitespace-nowrap ${
                   activeTab === "WALLET"
                     ? "bg-[#0c2340] text-white shadow-sm"
-                    : "hover:bg-stone-200 text-stone-700"
+                    : "hover:bg-stone-200 text-stone-700 bg-white md:bg-transparent"
                 }`}
               >
                 <Wallet className="w-4 h-4" />
-                <span className="flex-1 text-left">Wallets</span>
+                <span className="text-left">Wallets</span>
               </button>
             </div>
 

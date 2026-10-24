@@ -119,7 +119,7 @@ export default function VideoAdvertisementShowcase({
           {/* Cards Flex Row - Centered on screen */}
           <div
             ref={scrollContainerRef}
-            className="flex justify-start md:justify-center items-center gap-5 sm:gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-none scroll-smooth w-full max-w-full"
+            className="flex justify-start md:justify-center items-center gap-4 sm:gap-6 overflow-x-auto pb-4 pt-1 snap-x snap-mandatory scrollbar-none scroll-smooth w-full max-w-full px-2 sm:px-0"
           >
             {videos.map((vid) => {
               const isUnmuted = unmutedCardId === vid.id;
@@ -128,7 +128,7 @@ export default function VideoAdvertisementShowcase({
               return (
                 <div
                   key={vid.id}
-                  className="w-64 sm:w-72 md:w-80 shrink-0 snap-start group relative rounded-3xl overflow-hidden bg-stone-950 border border-stone-200/90 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1"
+                  className="w-[72vw] max-w-[280px] sm:w-72 md:w-80 shrink-0 snap-center sm:snap-start group relative rounded-3xl overflow-hidden bg-stone-950 border border-stone-200/90 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-amber-500 hover:-translate-y-1"
                 >
                   {/* 9:16 Vertical Video Container */}
                   <div

@@ -29,14 +29,14 @@ export default function CategoryPills({ categories }: { categories: CategoryItem
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 overflow-x-auto sm:overflow-x-visible pb-3 sm:pb-0 scrollbar-none snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
           {categories.map((cat) => (
             <Link
               key={cat.id}
               href={`/collections/${cat.slug}`}
-              className="group flex flex-col items-center p-4 rounded-2xl bg-stone-50 border border-stone-200 hover:border-amber-400 hover:bg-amber-50/50 hover:shadow-md transition-all duration-300 text-center"
+              className="snap-start shrink-0 w-36 sm:w-auto group flex flex-col items-center p-3.5 sm:p-4 rounded-2xl bg-stone-50 border border-stone-200 hover:border-amber-400 hover:bg-amber-50/50 hover:shadow-md transition-all duration-300 text-center"
             >
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-3 flex items-center justify-center">
+              <div className="relative w-16 h-16 sm:w-24 sm:h-24 mb-2.5 sm:mb-3 flex items-center justify-center">
                 <Image
                   src={cat.image || "/images/products/organichy-jar.png"}
                   alt={cat.name}
@@ -45,7 +45,7 @@ export default function CategoryPills({ categories }: { categories: CategoryItem
                   className="object-contain transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <h3 className="font-extrabold text-xs sm:text-sm text-stone-900 group-hover:text-amber-700 transition-colors">
+              <h3 className="font-extrabold text-xs sm:text-sm text-stone-900 group-hover:text-amber-700 transition-colors line-clamp-2">
                 {cat.name}
               </h3>
             </Link>

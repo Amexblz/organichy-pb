@@ -270,7 +270,7 @@ export default function CheckoutPage() {
             {/* Delivery & Payment Form (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
               {/* Step 1: Customer Contact Info */}
-              <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+              <div className="bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
                 <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                   <h2 className="font-black text-sm uppercase text-stone-900 tracking-wider flex items-center gap-2">
                     <span className="w-6 h-6 rounded-full bg-stone-900 text-white text-xs flex items-center justify-center">1</span>
@@ -331,7 +331,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* Step 2: Shipping Address */}
-              <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+              <div className="bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
                 <div className="border-b border-stone-100 pb-3">
                   <h2 className="font-black text-sm uppercase text-stone-900 tracking-wider flex items-center gap-2">
                     <span className="w-6 h-6 rounded-full bg-stone-900 text-white text-xs flex items-center justify-center">2</span>
@@ -419,7 +419,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* Step 3: Payment Method */}
-              <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+              <div className="bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
                 <div className="border-b border-stone-100 pb-3">
                   <h2 className="font-black text-sm uppercase text-stone-900 tracking-wider flex items-center gap-2">
                     <span className="w-6 h-6 rounded-full bg-stone-900 text-white text-xs flex items-center justify-center">3</span>
@@ -495,7 +495,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Order Review Sidebar (5 cols) */}
-            <div className="lg:col-span-5 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
+            <div className="lg:col-span-5 bg-white p-4 sm:p-6 rounded-2xl border border-stone-200 shadow-sm space-y-4">
               <h2 className="font-black text-sm uppercase text-stone-900 tracking-wider pb-3 border-b border-stone-100">
                 Order Items ({items.length})
               </h2>

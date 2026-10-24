@@ -66,36 +66,36 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
       <div className="absolute bottom-0 left-10 w-72 h-72 bg-amber-600/10 rounded-full blur-3xl pointer-events-none overflow-hidden" />
 
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center w-full min-w-0">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 lg:gap-8 items-center w-full min-w-0">
             {/* Text Content - stable minimum height and strictly constrained width */}
             <div
-              className={`lg:col-span-7 min-w-0 w-full space-y-5 text-center lg:text-left flex flex-col justify-center min-h-[300px] sm:min-h-[330px] lg:min-h-[360px] transition-all duration-200 ${
+              className={`lg:col-span-7 min-w-0 w-full space-y-4 sm:space-y-5 text-center lg:text-left flex flex-col justify-center min-h-[260px] sm:min-h-[330px] lg:min-h-[360px] transition-all duration-200 ${
                 isFading ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"
               }`}
             >
               {current.badgeText && (
-                <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-full shadow-inner self-center lg:self-start">
+                <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] sm:text-sm font-extrabold px-3 py-1.5 rounded-full shadow-inner self-center lg:self-start">
                   <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span className="truncate">{current.badgeText}</span>
                 </div>
               )}
 
-              <div className="min-h-[72px] sm:min-h-[110px] lg:min-h-[144px] flex items-center">
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.12] text-white break-words w-full">
+              <div className="min-h-[56px] sm:min-h-[110px] lg:min-h-[144px] flex items-center">
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15] text-white break-words w-full">
                   {current.title}
                 </h1>
               </div>
 
-              <div className="min-h-[48px] sm:min-h-[52px] flex items-center">
+              <div className="min-h-[40px] sm:min-h-[52px] flex items-center">
                 {current.subtitle && (
-                  <p className="text-sm sm:text-base text-stone-300 max-w-lg font-normal leading-relaxed mx-auto lg:mx-0 break-words">
+                  <p className="text-xs sm:text-base text-stone-300 max-w-lg font-normal leading-relaxed mx-auto lg:mx-0 break-words">
                     {current.subtitle}
                   </p>
                 )}
               </div>
 
               {/* Quick feature pill tags */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1 text-xs font-bold text-stone-300">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-[11px] sm:text-xs font-bold text-stone-300">
                 <span className="flex items-center gap-1 bg-stone-800/80 px-2.5 py-1 rounded-full border border-stone-700 whitespace-nowrap">
                   🥜 100% Saurashtra Peanuts
                 </span>
@@ -107,17 +107,17 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                 </span>
               </div>
 
-              <div className="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+              <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full">
                 <Link
                   href={current.link}
-                  className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm uppercase px-7 py-3.5 rounded-xl transition-all shadow-xl hover:shadow-amber-500/30 flex items-center justify-center gap-2 group"
+                  className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm uppercase px-7 py-3 sm:py-3.5 rounded-xl transition-all shadow-xl hover:shadow-amber-500/30 flex items-center justify-center gap-2 group"
                 >
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="w-full sm:w-auto bg-stone-800/80 hover:bg-stone-700 text-white font-bold text-xs sm:text-sm uppercase px-5 py-3.5 rounded-xl transition-colors border border-stone-700 text-center"
+                  className="w-full sm:w-auto bg-stone-800/80 hover:bg-stone-700 text-white font-bold text-xs sm:text-sm uppercase px-5 py-3 sm:py-3.5 rounded-xl transition-colors border border-stone-700 text-center"
                 >
                   EXPLORE ALL
                 </Link>
@@ -126,7 +126,7 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
 
             {/* Hero Visual Image - strictly contained so rotating ring never overflows */}
             <div className="lg:col-span-5 min-w-0 w-full flex justify-center items-center relative">
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[340px] md:h-[340px] flex items-center justify-center shrink-0">
+              <div className="relative w-56 h-56 sm:w-80 sm:h-80 md:w-[340px] md:h-[340px] flex items-center justify-center shrink-0">
                 {/* Outer glowing ring strictly enclosed inside clipped container */}
                 <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
                   <div className="w-full h-full rounded-full border-2 border-amber-500/20 animate-spin-slow" />
@@ -142,7 +142,7 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                     src={current.image}
                     alt={current.title}
                     fill
-                    sizes="(max-width: 768px) 70vw, 340px"
+                    sizes="(max-width: 640px) 220px, (max-width: 768px) 70vw, 340px"
                     className="object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
                     priority
                     unoptimized={true}
@@ -150,9 +150,9 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                 </div>
 
                 {/* Float badge */}
-                <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-4 bg-stone-950/90 border border-amber-500/40 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-md pointer-events-none">
-                  <p className="text-[9px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
-                  <p className="text-lg font-black text-white">32g Protein</p>
+                <div className="absolute bottom-1 sm:bottom-3 right-1 sm:right-4 bg-stone-950/90 border border-amber-500/40 rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-2xl backdrop-blur-md pointer-events-none">
+                  <p className="text-[8px] sm:text-[9px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
+                  <p className="text-base sm:text-lg font-black text-white">32g Protein</p>
                 </div>
               </div>
             </div>

@@ -245,11 +245,12 @@ export default function ProductDetailClient({ product }: { product: any }) {
 
         {/* Quantity & CTA Buttons */}
         <div className="space-y-3 pt-2">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center border border-stone-300 rounded-xl bg-white shadow-sm overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <div className="flex items-center justify-between sm:justify-start border border-stone-300 rounded-xl bg-white shadow-sm overflow-hidden h-12">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="px-4 py-3 text-stone-600 hover:bg-stone-100 transition-colors font-bold"
+                className="px-5 py-3 text-stone-600 hover:bg-stone-100 transition-colors font-bold text-base"
+                aria-label="Decrease quantity"
               >
                 -
               </button>
@@ -258,7 +259,8 @@ export default function ProductDetailClient({ product }: { product: any }) {
               </span>
               <button
                 onClick={() => setQuantity(Math.min(activeVariant.stock, quantity + 1))}
-                className="px-4 py-3 text-stone-600 hover:bg-stone-100 transition-colors font-bold"
+                className="px-5 py-3 text-stone-600 hover:bg-stone-100 transition-colors font-bold text-base"
+                aria-label="Increase quantity"
               >
                 +
               </button>
@@ -267,9 +269,9 @@ export default function ProductDetailClient({ product }: { product: any }) {
             <button
               onClick={handleAddToCart}
               disabled={isOutOfStock}
-              className="flex-1 bg-stone-900 hover:bg-stone-800 text-white font-black text-sm uppercase py-3.5 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-40"
+              className="flex-1 bg-stone-900 hover:bg-stone-800 text-white font-black text-xs sm:text-sm uppercase py-3.5 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-40 h-12 active:scale-98"
             >
-              <ShoppingCart className="w-4 h-4" />
+              <ShoppingCart className="w-4 h-4 shrink-0" />
               <span>{isOutOfStock ? "SOLD OUT" : "ADD TO CART"}</span>
             </button>
           </div>
@@ -277,9 +279,9 @@ export default function ProductDetailClient({ product }: { product: any }) {
           <button
             onClick={handleBuyNow}
             disabled={isOutOfStock}
-            className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-sm uppercase py-4 rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-40"
+            className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm uppercase py-3.5 sm:py-4 rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-40 active:scale-98"
           >
-            <Zap className="w-4 h-4 fill-current" />
+            <Zap className="w-4 h-4 fill-current shrink-0" />
             <span>BUY NOW (INSTANT CHECKOUT)</span>
           </button>
         </div>
@@ -289,10 +291,10 @@ export default function ProductDetailClient({ product }: { product: any }) {
 
         {/* Tabbed Content: Description, Nutrition Facts, Ingredients, Reviews */}
         <div className="pt-6 border-t border-stone-200">
-          <div className="flex border-b border-stone-200 gap-4 text-xs sm:text-sm font-black uppercase">
+          <div className="flex border-b border-stone-200 gap-2 sm:gap-4 text-xs sm:text-sm font-black uppercase overflow-x-auto scrollbar-none pb-0.5">
             <button
               onClick={() => setActiveTab("desc")}
-              className={`pb-3 transition-colors ${
+              className={`pb-3 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === "desc"
                   ? "border-b-2 border-amber-600 text-amber-700"
                   : "text-stone-500 hover:text-stone-800"
@@ -302,27 +304,27 @@ export default function ProductDetailClient({ product }: { product: any }) {
             </button>
             <button
               onClick={() => setActiveTab("nutrition")}
-              className={`pb-3 transition-colors ${
+              className={`pb-3 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === "nutrition"
                   ? "border-b-2 border-amber-600 text-amber-700"
                   : "text-stone-500 hover:text-stone-800"
               }`}
             >
-              Nutrition Facts (32g Protein)
+              Nutrition Facts
             </button>
             <button
               onClick={() => setActiveTab("ingredients")}
-              className={`pb-3 transition-colors ${
+              className={`pb-3 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === "ingredients"
                   ? "border-b-2 border-amber-600 text-amber-700"
                   : "text-stone-500 hover:text-stone-800"
               }`}
             >
-              Ingredients & Directions
+              Ingredients
             </button>
             <button
               onClick={() => setActiveTab("reviews")}
-              className={`pb-3 transition-colors ${
+              className={`pb-3 transition-colors shrink-0 whitespace-nowrap ${
                 activeTab === "reviews"
                   ? "border-b-2 border-amber-600 text-amber-700"
                   : "text-stone-500 hover:text-stone-800"

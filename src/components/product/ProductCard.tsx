@@ -155,7 +155,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
         {/* Product Title */}
         <Link href={`/products/${product.slug}`} className="block">
-          <h3 className="font-extrabold text-sm sm:text-base text-stone-900 line-clamp-2 leading-tight hover:text-amber-600 transition-colors">
+          <h3 className="font-extrabold text-xs sm:text-base text-stone-900 line-clamp-2 leading-tight hover:text-amber-600 transition-colors min-h-[2rem] sm:min-h-[2.5rem]">
             {product.name}
           </h3>
         </Link>
@@ -181,13 +181,13 @@ export default function ProductCard({ product }: { product: ProductType }) {
       </div>
 
       {/* Pricing & Add to Cart Action */}
-      <div className="mt-3 pt-3 border-t border-stone-100">
-        <div className="flex items-baseline gap-2 mb-3">
-          <span className="text-lg sm:text-xl font-black text-stone-950">
+      <div className="mt-2 sm:mt-3 pt-2.5 sm:pt-3 border-t border-stone-100">
+        <div className="flex items-baseline gap-1.5 sm:gap-2 mb-2 sm:mb-3 flex-wrap">
+          <span className="text-base sm:text-xl font-black text-stone-950">
             {formatINR(activeVariant.price)}
           </span>
           {activeVariant.mrp > activeVariant.price && (
-            <span className="text-xs sm:text-sm text-stone-400 line-through">
+            <span className="text-[11px] sm:text-sm text-stone-400 line-through">
               {formatINR(activeVariant.mrp)}
             </span>
           )}
@@ -196,7 +196,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
         <button
           onClick={handleAddToCart}
           disabled={isOutOfStock}
-          className={`w-full py-2.5 px-3 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md ${
+          className={`w-full py-2 sm:py-2.5 px-2 sm:px-3 rounded-xl font-black text-[11px] sm:text-sm uppercase tracking-wider flex items-center justify-center gap-1.5 sm:gap-2 transition-all shadow-md active:scale-95 ${
             isOutOfStock
               ? "bg-stone-200 text-stone-400 cursor-not-allowed shadow-none"
               : addedAnimation
