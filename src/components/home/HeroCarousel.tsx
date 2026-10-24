@@ -66,7 +66,7 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
       <div className="absolute bottom-0 left-10 w-96 h-96 bg-amber-600/15 rounded-full blur-3xl pointer-events-none overflow-hidden" />
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full min-w-0">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 lg:gap-8 items-center w-full min-w-0">
             {/* Text Content */}
             <div
               className={`lg:col-span-5 min-w-0 w-full space-y-5 sm:space-y-6 text-center lg:text-left flex flex-col justify-center transition-all duration-200 ${
@@ -124,15 +124,15 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
               </div>
             </div>
 
-            {/* Hero Visual Image - Extra Large Container (7 Cols on desktop, up to 640px) */}
-            <div className="lg:col-span-7 min-w-0 w-full flex justify-center items-center relative">
-              <div className="relative w-full max-w-[360px] sm:max-w-[480px] md:max-w-[560px] lg:max-w-[640px] aspect-[4/3] sm:aspect-square flex items-center justify-center shrink-0">
+            {/* Hero Visual Image - 50% larger container with full bleed rendering */}
+            <div className="lg:col-span-7 min-w-0 w-full flex justify-center items-center relative py-4">
+              <div className="relative w-full max-w-[460px] sm:max-w-[620px] md:max-w-[720px] lg:max-w-[850px] aspect-[4/3] sm:aspect-[1/1] lg:aspect-[1.1/1] flex items-center justify-center shrink-0">
                 {/* Outer glowing ring strictly enclosed inside clipped container */}
                 <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                  <div className="w-full h-full rounded-full border-2 border-amber-500/30 animate-spin-slow scale-95" />
+                  <div className="w-full h-full rounded-full border-2 border-amber-500/25 animate-spin-slow scale-100" />
                 </div>
 
-                {/* Product Visual - Fills entire container */}
+                {/* Product Visual - Enlarged to 150% (50% more) */}
                 <div
                   className={`relative w-full h-full drop-shadow-2xl transition-all duration-300 flex items-center justify-center ${
                     isFading ? "opacity-0 scale-95" : "opacity-100 scale-100"
@@ -142,56 +142,21 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                     src={current.image}
                     alt={current.title}
                     fill
-                    sizes="(max-width: 640px) 360px, (max-width: 768px) 480px, (max-width: 1024px) 560px, 640px"
-                    className="object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.9)] scale-110"
+                    sizes="(max-width: 640px) 460px, (max-width: 768px) 620px, (max-width: 1024px) 720px, 850px"
+                    className="object-contain filter drop-shadow-[0_30px_70px_rgba(0,0,0,0.95)] scale-150"
                     priority
                     unoptimized={true}
                   />
                 </div>
 
                 {/* Float badge */}
-                <div className="absolute bottom-2 sm:bottom-6 right-2 sm:right-6 bg-stone-950/95 border border-amber-500/50 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-2xl backdrop-blur-md pointer-events-none z-20">
+                <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-stone-950/95 border border-amber-500/50 rounded-2xl px-4 py-2 sm:px-5 sm:py-2.5 shadow-2xl backdrop-blur-md pointer-events-none z-20">
                   <p className="text-[9px] sm:text-[11px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
                   <p className="text-xl sm:text-3xl font-black text-white">32g Protein</p>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Navigation Dots & Arrows */}
-          {activeBanners.length > 1 && (
-            <div className="flex items-center justify-between pt-6 border-t border-stone-800/80 mt-6 w-full">
-              <div className="flex items-center gap-2">
-                {activeBanners.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      currentIndex === index ? "w-8 bg-amber-500" : "w-2 bg-stone-700 hover:bg-stone-500"
-                    }`}
-                    aria-label={`Slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={prevSlide}
-                  className="p-1.5 rounded-full bg-stone-800/80 hover:bg-stone-700 text-stone-300 hover:text-white transition-colors"
-                  aria-label="Previous slide"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="p-1.5 rounded-full bg-stone-800/80 hover:bg-stone-700 text-stone-300 hover:text-white transition-colors"
-                  aria-label="Next slide"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </section>
   );
