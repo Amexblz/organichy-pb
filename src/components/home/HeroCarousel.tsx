@@ -60,81 +60,81 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
   const current = activeBanners[currentIndex];
 
   return (
-    <section className="w-full max-w-full relative bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950 text-white overflow-hidden py-8 sm:py-12 md:py-16 border-b border-stone-800/80">
+    <section className="w-full max-w-full relative bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950 text-white overflow-hidden py-10 sm:py-16 md:py-20 border-b border-stone-800/80">
       {/* Background ambient lighting - strictly contained */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none overflow-hidden" />
-      <div className="absolute bottom-0 left-10 w-80 h-80 bg-amber-600/15 rounded-full blur-3xl pointer-events-none overflow-hidden" />
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-amber-500/15 rounded-full blur-3xl pointer-events-none overflow-hidden" />
+      <div className="absolute bottom-0 left-10 w-96 h-96 bg-amber-600/15 rounded-full blur-3xl pointer-events-none overflow-hidden" />
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 lg:gap-10 items-center w-full min-w-0">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full min-w-0">
             {/* Text Content */}
             <div
-              className={`lg:col-span-6 min-w-0 w-full space-y-4 sm:space-y-6 text-center lg:text-left flex flex-col justify-center min-h-[260px] sm:min-h-[320px] transition-all duration-200 ${
+              className={`lg:col-span-5 min-w-0 w-full space-y-5 sm:space-y-6 text-center lg:text-left flex flex-col justify-center transition-all duration-200 ${
                 isFading ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"
               }`}
             >
               {current.badgeText && (
-                <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] sm:text-sm font-extrabold px-3 py-1.5 rounded-full shadow-inner self-center lg:self-start">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full shadow-inner self-center lg:self-start">
+                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
                   <span className="truncate">{current.badgeText}</span>
                 </div>
               )}
 
-              <div className="min-h-[56px] sm:min-h-[90px] lg:min-h-[120px] flex items-center">
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.12] text-white break-words w-full">
+              <div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight leading-[1.08] text-white break-words w-full">
                   {current.title}
                 </h1>
               </div>
 
-              <div className="min-h-[40px] sm:min-h-[48px] flex items-center">
+              <div>
                 {current.subtitle && (
-                  <p className="text-xs sm:text-base text-stone-300 max-w-lg font-normal leading-relaxed mx-auto lg:mx-0 break-words">
+                  <p className="text-sm sm:text-base lg:text-lg text-stone-300 max-w-xl font-normal leading-relaxed mx-auto lg:mx-0 break-words">
                     {current.subtitle}
                   </p>
                 )}
               </div>
 
               {/* Quick feature pill tags */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-[11px] sm:text-xs font-bold text-stone-300">
-                <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1.5 rounded-full border border-stone-700 whitespace-nowrap">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1 text-xs font-bold text-stone-300">
+                <span className="flex items-center gap-1.5 bg-stone-800/90 px-3.5 py-1.5 rounded-full border border-stone-700 whitespace-nowrap">
                   🥜 100% Saurashtra Peanuts
                 </span>
-                <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1.5 rounded-full border border-stone-700 whitespace-nowrap">
+                <span className="flex items-center gap-1.5 bg-stone-800/90 px-3.5 py-1.5 rounded-full border border-stone-700 whitespace-nowrap">
                   🚫 0% Palm Oil
                 </span>
-                <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1.5 rounded-full border border-stone-700 whitespace-nowrap">
+                <span className="flex items-center gap-1.5 bg-stone-800/90 px-3.5 py-1.5 rounded-full border border-stone-700 whitespace-nowrap">
                   ⚡ 32g Protein / 100g
                 </span>
               </div>
 
-              <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full">
+              <div className="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 w-full">
                 <Link
                   href={current.link}
-                  className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs sm:text-sm uppercase px-8 py-3.5 rounded-xl transition-all shadow-xl hover:shadow-amber-500/30 flex items-center justify-center gap-2 group"
+                  className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-sm uppercase px-9 py-4 rounded-xl transition-all shadow-xl hover:shadow-amber-500/30 flex items-center justify-center gap-2 group tracking-wide"
                 >
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="w-full sm:w-auto bg-stone-800/80 hover:bg-stone-700 text-white font-bold text-xs sm:text-sm uppercase px-6 py-3.5 rounded-xl transition-colors border border-stone-700 text-center"
+                  className="w-full sm:w-auto bg-stone-800/90 hover:bg-stone-700 text-white font-bold text-sm uppercase px-7 py-4 rounded-xl transition-colors border border-stone-700 text-center tracking-wide"
                 >
                   EXPLORE ALL
                 </Link>
               </div>
             </div>
 
-            {/* Hero Visual Image - Enlarge container and image to fit prominently */}
-            <div className="lg:col-span-6 min-w-0 w-full flex justify-center items-center relative">
-              <div className="relative w-72 h-72 sm:w-[420px] sm:h-[420px] md:w-[480px] md:h-[480px] lg:w-[520px] lg:h-[520px] flex items-center justify-center shrink-0">
+            {/* Hero Visual Image - Extra Large Container (7 Cols on desktop, up to 640px) */}
+            <div className="lg:col-span-7 min-w-0 w-full flex justify-center items-center relative">
+              <div className="relative w-full max-w-[360px] sm:max-w-[480px] md:max-w-[560px] lg:max-w-[640px] aspect-[4/3] sm:aspect-square flex items-center justify-center shrink-0">
                 {/* Outer glowing ring strictly enclosed inside clipped container */}
                 <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                  <div className="w-full h-full rounded-full border-2 border-amber-500/30 animate-spin-slow scale-90" />
+                  <div className="w-full h-full rounded-full border-2 border-amber-500/30 animate-spin-slow scale-95" />
                 </div>
 
-                {/* Product Visual - Fills container 100% */}
+                {/* Product Visual - Fills entire container */}
                 <div
-                  className={`relative w-full h-full p-2 sm:p-4 drop-shadow-2xl transition-all duration-300 flex items-center justify-center ${
+                  className={`relative w-full h-full drop-shadow-2xl transition-all duration-300 flex items-center justify-center ${
                     isFading ? "opacity-0 scale-95" : "opacity-100 scale-100"
                   }`}
                 >
@@ -142,17 +142,17 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                     src={current.image}
                     alt={current.title}
                     fill
-                    sizes="(max-width: 640px) 288px, (max-width: 768px) 420px, (max-width: 1024px) 480px, 520px"
-                    className="object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.85)] scale-105"
+                    sizes="(max-width: 640px) 360px, (max-width: 768px) 480px, (max-width: 1024px) 560px, 640px"
+                    className="object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.9)] scale-110"
                     priority
                     unoptimized={true}
                   />
                 </div>
 
                 {/* Float badge */}
-                <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-6 bg-stone-950/95 border border-amber-500/50 rounded-2xl px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-2xl backdrop-blur-md pointer-events-none">
-                  <p className="text-[9px] sm:text-[10px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
-                  <p className="text-lg sm:text-2xl font-black text-white">32g Protein</p>
+                <div className="absolute bottom-2 sm:bottom-6 right-2 sm:right-6 bg-stone-950/95 border border-amber-500/50 rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3 shadow-2xl backdrop-blur-md pointer-events-none z-20">
+                  <p className="text-[9px] sm:text-[11px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
+                  <p className="text-xl sm:text-3xl font-black text-white">32g Protein</p>
                 </div>
               </div>
             </div>
