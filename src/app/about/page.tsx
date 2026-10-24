@@ -5,6 +5,8 @@ import { Award, ShieldCheck, Heart, Sparkles, CheckCircle2 } from "lucide-react"
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
+export const revalidate = 3600;
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-stone-50 flex flex-col font-sans">

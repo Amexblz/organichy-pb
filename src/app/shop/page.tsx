@@ -28,14 +28,18 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   let products: any[] = [];
 
   try {
-    settings = await prisma.siteSettings.findUnique({
-      where: { id: "default-settings" },
-    });
+    const [dbSettings, dbCategories] = await Promise.all([
+      prisma.siteSettings.findUnique({
+        where: { id: "default-settings" },
+      }),
+      prisma.category.findMany({
+        where: { active: true },
+        orderBy: { displayOrder: "asc" },
+      }),
+    ]);
 
-    categories = await prisma.category.findMany({
-      where: { active: true },
-      orderBy: { displayOrder: "asc" },
-    });
+    settings = dbSettings;
+    categories = dbCategories || [];
 
     // Build filter query
     const whereClause: any = { active: true };

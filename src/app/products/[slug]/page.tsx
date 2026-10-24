@@ -8,8 +8,19 @@ import ProductDetailClient from "@/components/product/ProductDetailClient";
 import ProductCard from "@/components/product/ProductCard";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  try {
+    const products = await prisma.product.findMany({
+      where: { active: true },
+      select: { slug: true },
+    });
+    return products.map((p) => ({ slug: p.slug }));
+  } catch (e) {
+    return [];
+  }
+}
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const product = await prisma.product.findUnique({
@@ -34,27 +45,31 @@ export default async function ProductPage({ params }: { params: { slug: string }
   let relatedProducts: any[] = [];
 
   try {
-    settings = await prisma.siteSettings.findUnique({
-      where: { id: "default-settings" },
-    });
+    const [dbSettings, dbProduct] = await Promise.all([
+      prisma.siteSettings.findUnique({
+        where: { id: "default-settings" },
+      }),
+      prisma.product.findUnique({
+        where: { slug: params.slug },
+        include: {
+          category: true,
+          variants: {
+            where: { active: true },
+            orderBy: { price: "asc" },
+          },
+          images: {
+            orderBy: { displayOrder: "asc" },
+          },
+          reviews: {
+            where: { isApproved: true },
+            orderBy: { createdAt: "desc" },
+          },
+        },
+      }),
+    ]);
 
-    product = await prisma.product.findUnique({
-      where: { slug: params.slug },
-      include: {
-        category: true,
-        variants: {
-          where: { active: true },
-          orderBy: { price: "asc" },
-        },
-        images: {
-          orderBy: { displayOrder: "asc" },
-        },
-        reviews: {
-          where: { isApproved: true },
-          orderBy: { createdAt: "desc" },
-        },
-      },
-    });
+    settings = dbSettings;
+    product = dbProduct;
 
     if (product && product.active) {
       relatedProducts = await prisma.product.findMany({

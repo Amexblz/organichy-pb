@@ -91,27 +91,27 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm font-medium">
               <li>
-                <Link href="/collections/peanut-butter" className="hover:text-amber-400 transition-colors">
+                <Link href="/collections/peanut-butter" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Peanut Butter
                 </Link>
               </li>
               <li>
-                <Link href="/collections/chocolate-collection" className="hover:text-amber-400 transition-colors">
+                <Link href="/collections/chocolate-collection" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Dark Chocolate
                 </Link>
               </li>
               <li>
-                <Link href="/collections/high-protein" className="hover:text-amber-400 transition-colors">
+                <Link href="/collections/high-protein" prefetch={true} className="hover:text-amber-400 transition-colors">
                   High Protein (32g)
                 </Link>
               </li>
               <li>
-                <Link href="/collections/natural-organic" className="hover:text-amber-400 transition-colors">
+                <Link href="/collections/natural-organic" prefetch={true} className="hover:text-amber-400 transition-colors">
                   100% Natural & Keto
                 </Link>
               </li>
               <li>
-                <Link href="/collections/combos" className="hover:text-amber-400 transition-colors">
+                <Link href="/collections/combos" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Combos & Super Savers
                 </Link>
               </li>
@@ -125,27 +125,27 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm font-medium">
               <li>
-                <Link href="/track-order" className="hover:text-amber-400 transition-colors">
+                <Link href="/track-order" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Track Order
                 </Link>
               </li>
               <li>
-                <Link href="/account" className="hover:text-amber-400 transition-colors">
+                <Link href="/account" prefetch={true} className="hover:text-amber-400 transition-colors">
                   My Account
                 </Link>
               </li>
               <li>
-                <Link href="/account/orders" className="hover:text-amber-400 transition-colors">
+                <Link href="/account/orders" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Order History
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-amber-400 transition-colors">
+                <Link href="/faq" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Frequently Asked Questions
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-amber-400 transition-colors">
+                <Link href="/contact" prefetch={true} className="hover:text-amber-400 transition-colors">
                   Contact Support
                 </Link>
               </li>

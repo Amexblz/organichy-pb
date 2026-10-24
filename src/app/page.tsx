@@ -10,8 +10,8 @@ import NutritionShowcase from "@/components/home/NutritionShowcase";
 import CustomerReviewsSection from "@/components/home/CustomerReviewsSection";
 import VideoAdvertisementShowcase from "@/components/home/VideoAdvertisementShowcase";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0; // dynamic data
+// Statically cache with ISR: revalidate in the background every 60 seconds
+export const revalidate = 60;
 
 export default async function HomePage() {
   let settings: any = null;
@@ -21,43 +21,43 @@ export default async function HomePage() {
   let allProducts: any[] = [];
 
   try {
-    // Fetch site settings
-    settings = await prisma.siteSettings.findUnique({
-      where: { id: "default-settings" },
-    });
-
-    // Fetch active banners
-    banners = await prisma.banner.findMany({
-      where: { isActive: true },
-      orderBy: { displayOrder: "asc" },
-    });
-
-    // Fetch active categories
-    categories = await prisma.category.findMany({
-      where: { active: true },
-      orderBy: { displayOrder: "asc" },
-    });
-
-    // Fetch active advertisement videos
-    advertisementVideos = await prisma.advertisementVideo.findMany({
-      where: { active: true },
-      orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
-    });
-
-    // Fetch products with variants and images
-    allProducts = await prisma.product.findMany({
-      where: { active: true },
-      include: {
-        variants: {
-          where: { active: true },
-          orderBy: { price: "asc" },
+    // Run all database fetches in parallel for maximum speed
+    const [dbSettings, dbBanners, dbCategories, dbVideos, dbProducts] = await Promise.all([
+      prisma.siteSettings.findUnique({
+        where: { id: "default-settings" },
+      }),
+      prisma.banner.findMany({
+        where: { isActive: true },
+        orderBy: { displayOrder: "asc" },
+      }),
+      prisma.category.findMany({
+        where: { active: true },
+        orderBy: { displayOrder: "asc" },
+      }),
+      prisma.advertisementVideo.findMany({
+        where: { active: true },
+        orderBy: [{ displayOrder: "asc" }, { createdAt: "desc" }],
+      }),
+      prisma.product.findMany({
+        where: { active: true },
+        include: {
+          variants: {
+            where: { active: true },
+            orderBy: { price: "asc" },
+          },
+          images: {
+            orderBy: { displayOrder: "asc" },
+          },
         },
-        images: {
-          orderBy: { displayOrder: "asc" },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+        orderBy: { createdAt: "desc" },
+      }),
+    ]);
+
+    settings = dbSettings;
+    banners = dbBanners || [];
+    categories = dbCategories || [];
+    advertisementVideos = dbVideos || [];
+    allProducts = dbProducts || [];
   } catch (error) {
     console.error("HomePage Database SSR error (verify DATABASE_URL is configured):", error);
   }

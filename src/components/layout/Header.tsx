@@ -17,6 +17,9 @@ import {
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
+let cachedAuthUser: any = null;
+let hasCheckedAuth = false;
+
 export default function Header({
   announcementText: propAnnouncementText,
 }: {
@@ -25,7 +28,7 @@ export default function Header({
   const { items, setIsCartOpen, wishlist, siteSettings } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<any>(cachedAuthUser);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
@@ -37,15 +40,23 @@ export default function Header({
   const isAnnouncementActive = siteSettings.announcementActive !== false;
 
   useEffect(() => {
-    // Check if user is logged in
-    fetch("/api/auth/me")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data?.authenticated) {
-          setCurrentUser(data.user);
-        }
-      })
-      .catch(() => {});
+    // Only check auth once unless invalidated
+    if (!hasCheckedAuth) {
+      fetch("/api/auth/me")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          hasCheckedAuth = true;
+          if (data?.authenticated) {
+            cachedAuthUser = data.user;
+            setCurrentUser(data.user);
+          } else {
+            cachedAuthUser = null;
+          }
+        })
+        .catch(() => {
+          hasCheckedAuth = true;
+        });
+    }
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
@@ -64,6 +75,8 @@ export default function Header({
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
+    cachedAuthUser = null;
+    hasCheckedAuth = false;
     setCurrentUser(null);
     setUserMenuOpen(false);
     router.push("/");
@@ -97,7 +110,7 @@ export default function Header({
           </button>
 
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center shrink-0 group py-1" aria-label="Organichy Home">
+          <Link href="/" prefetch={true} className="flex items-center shrink-0 group py-1" aria-label="Organichy Home">
             <div className="relative h-10 sm:h-14 md:h-16 w-32 sm:w-48 md:w-56 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src={siteSettings.logoUrl || "/images/branding/logo.png"}
@@ -112,25 +125,25 @@ export default function Header({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-7 text-sm font-bold text-stone-800">
-            <Link href="/shop" className="hover:text-amber-600 transition-colors">
+            <Link href="/shop" prefetch={true} className="hover:text-amber-600 transition-colors">
               ALL PRODUCTS
             </Link>
-            <Link href="/collections/chocolate-collection" className="hover:text-amber-600 transition-colors flex items-center gap-1">
+            <Link href="/collections/chocolate-collection" prefetch={true} className="hover:text-amber-600 transition-colors flex items-center gap-1">
               DARK CHOCOLATE
               <span className="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">
                 HOT
               </span>
             </Link>
-            <Link href="/collections/high-protein" className="hover:text-amber-600 transition-colors">
+            <Link href="/collections/high-protein" prefetch={true} className="hover:text-amber-600 transition-colors">
               HIGH PROTEIN
             </Link>
-            <Link href="/collections/natural-organic" className="hover:text-amber-600 transition-colors">
+            <Link href="/collections/natural-organic" prefetch={true} className="hover:text-amber-600 transition-colors">
               100% NATURAL
             </Link>
-            <Link href="/collections/combos" className="hover:text-amber-600 transition-colors">
+            <Link href="/collections/combos" prefetch={true} className="hover:text-amber-600 transition-colors">
               COMBOS & SAVER
             </Link>
-            <Link href="/about" className="hover:text-amber-600 transition-colors text-stone-500 font-medium">
+            <Link href="/about" prefetch={true} className="hover:text-amber-600 transition-colors text-stone-500 font-medium">
               OUR STORY
             </Link>
           </nav>
@@ -290,7 +303,17 @@ export default function Header({
           </div>
           <div className="grid grid-cols-1 gap-3 font-bold text-sm tracking-wide">
             <Link
+              href="/"
+              prefetch={true}
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+            >
+              <span>HOME</span>
+              <span>🏠</span>
+            </Link>
+            <Link
               href="/shop"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
             >
@@ -299,6 +322,7 @@ export default function Header({
             </Link>
             <Link
               href="/collections/chocolate-collection"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
             >
@@ -307,6 +331,7 @@ export default function Header({
             </Link>
             <Link
               href="/collections/high-protein"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
             >
@@ -315,6 +340,7 @@ export default function Header({
             </Link>
             <Link
               href="/collections/natural-organic"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
             >
@@ -323,6 +349,7 @@ export default function Header({
             </Link>
             <Link
               href="/collections/combos"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
             >
@@ -331,6 +358,7 @@ export default function Header({
             </Link>
             <Link
               href="/track-order"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between text-stone-300"
             >
@@ -339,6 +367,7 @@ export default function Header({
             </Link>
             <Link
               href="/about"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="py-2 hover:text-amber-400 text-stone-300"
             >
