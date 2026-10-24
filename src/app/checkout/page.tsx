@@ -30,7 +30,6 @@ export default function CheckoutPage() {
   // Form State
   const [formData, setFormData] = useState({
     fullName: "",
-    email: "",
     phone: "",
     addressLine1: "",
     addressLine2: "",
@@ -39,7 +38,8 @@ export default function CheckoutPage() {
     pincode: "",
   });
 
-  const [paymentMethod, setPaymentMethod] = useState<"COD" | "RAZORPAY">("COD");
+  const [pincodeLoading, setPincodeLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"COD" | "RAZORPAY">("RAZORPAY");
 
   // Razorpay Dummy Gateway Modal State
   const [isRazorpayModalOpen, setIsRazorpayModalOpen] = useState(false);
@@ -52,9 +52,9 @@ export default function CheckoutPage() {
   } | null>(null);
 
   useEffect(() => {
-    if (siteSettings?.enableCod === false && siteSettings?.enableRazorpay) {
+    if (siteSettings?.enableRazorpay !== false) {
       setPaymentMethod("RAZORPAY");
-    } else if (siteSettings?.enableRazorpay === false && siteSettings?.enableCod) {
+    } else if (siteSettings?.enableCod) {
       setPaymentMethod("COD");
     }
   }, [siteSettings]);
@@ -76,7 +76,6 @@ export default function CheckoutPage() {
           setFormData((prev) => ({
             ...prev,
             fullName: data.user.name || "",
-            email: data.user.email || "",
             phone: data.user.phone || "",
             ...(defaultAddress && {
               addressLine1: defaultAddress.addressLine1 || "",
@@ -96,11 +95,45 @@ export default function CheckoutPage() {
     if (error) setError("");
   };
 
+  const handlePincodeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawVal = e.target.value.replace(/\D/g, "").slice(0, 6);
+    setFormData((prev) => ({ ...prev, pincode: rawVal }));
+    if (error) setError("");
+
+    if (rawVal.length === 6) {
+      setPincodeLoading(true);
+      try {
+        const res = await fetch("/api/pincode/check", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pincode: rawVal }),
+        });
+        const data = await res.json();
+        if (res.ok && data.serviceable) {
+          setFormData((prev) => ({
+            ...prev,
+            pincode: rawVal,
+            ...(data.city && { city: data.city }),
+            ...(data.state && {
+              state: INDIAN_STATES.find(
+                (s) => s.toLowerCase() === data.state.toLowerCase() || data.state.toLowerCase().includes(s.toLowerCase())
+              ) || data.state,
+            }),
+          }));
+        }
+      } catch (err) {
+        // Silently fail, user can still enter manually
+      } finally {
+        setPincodeLoading(false);
+      }
+    }
+  };
+
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.addressLine1.trim() || !formData.city.trim() || !formData.pincode.trim()) {
+    if (!formData.fullName.trim() || !formData.phone.trim() || !formData.addressLine1.trim() || !formData.city.trim() || !formData.pincode.trim()) {
       setError("Please fill in all mandatory delivery address fields.");
       return;
     }
@@ -113,12 +146,13 @@ export default function CheckoutPage() {
     setLoading(true);
 
     try {
+      const cleanPhone = formData.phone.trim().replace(/\D/g, "").slice(-10);
       const orderPayload = {
         items: items.map((i) => ({ variantId: i.variantId, quantity: i.quantity })),
         shippingAddress: {
           fullName: formData.fullName.trim(),
           phone: formData.phone.trim(),
-          email: formData.email.trim(),
+          email: `${cleanPhone}@customer.organichy.com`,
           addressLine1: formData.addressLine1.trim(),
           addressLine2: formData.addressLine2.trim(),
           city: formData.city.trim(),
@@ -127,7 +161,7 @@ export default function CheckoutPage() {
         },
         paymentMethod,
         couponCode: appliedCoupon ? appliedCoupon.code : null,
-        guestEmail: formData.email.trim(),
+        guestEmail: `${cleanPhone}@customer.organichy.com`,
         guestPhone: formData.phone.trim(),
       };
 
@@ -298,35 +332,21 @@ export default function CheckoutPage() {
                       className="w-full px-3 py-2.5 text-xs font-medium border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
                   </div>
+
                   <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1">
-                      Email Address (for invoice & tracking) *
+                      Mobile Number (10 digits for delivery updates) *
                     </label>
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleChange}
-                      placeholder="name@example.com"
+                      placeholder="e.g. 98765 43210"
                       required
                       className="w-full px-3 py-2.5 text-xs font-medium border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
                   </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
-                    Phone Number (10 digits for delivery updates) *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+91 98765 43210"
-                    required
-                    className="w-full px-3 py-2.5 text-xs font-medium border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
-                  />
                 </div>
               </div>
 
@@ -370,6 +390,25 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
+                    <label className="block text-xs font-bold text-stone-700 mb-1 flex items-center justify-between">
+                      <span>PIN Code *</span>
+                      {pincodeLoading && (
+                        <span className="text-[10px] text-amber-600 font-normal animate-pulse">Auto-fetching...</span>
+                      )}
+                    </label>
+                    <input
+                      type="text"
+                      maxLength={6}
+                      name="pincode"
+                      value={formData.pincode}
+                      onChange={handlePincodeChange}
+                      placeholder="e.g. 560103"
+                      required
+                      className="w-full px-3 py-2.5 text-xs font-medium border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1">
                       City / District *
                     </label>
@@ -378,7 +417,7 @@ export default function CheckoutPage() {
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                      placeholder="e.g. Bengaluru"
+                      placeholder="Auto-detected or enter"
                       required
                       className="w-full px-3 py-2.5 text-xs font-medium border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
@@ -399,22 +438,6 @@ export default function CheckoutPage() {
                       ))}
                     </select>
                   </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-stone-700 mb-1">
-                      PIN Code *
-                    </label>
-                    <input
-                      type="text"
-                      maxLength={6}
-                      name="pincode"
-                      value={formData.pincode}
-                      onChange={handleChange}
-                      placeholder="e.g. 560103"
-                      required
-                      className="w-full px-3 py-2.5 text-xs font-medium border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
-                    />
-                  </div>
                 </div>
               </div>
 
@@ -428,36 +451,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-3">
-                  {/* COD */}
-                  {siteSettings?.enableCod !== false && (
-                    <label
-                      onClick={() => setPaymentMethod("COD")}
-                      className={`flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                        paymentMethod === "COD"
-                          ? "border-amber-500 bg-amber-50/50 shadow-sm"
-                          : "border-stone-200 hover:border-stone-300"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="paymentMethod"
-                        checked={paymentMethod === "COD"}
-                        onChange={() => setPaymentMethod("COD")}
-                        className="mt-1"
-                      />
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 font-black text-sm text-stone-900">
-                          <Banknote className="w-4 h-4 text-green-700" />
-                          <span>Cash on Delivery (COD)</span>
-                        </div>
-                        <p className="text-xs text-stone-500 mt-1">
-                          Pay in cash or through UPI upon physical package delivery at your doorstep.
-                        </p>
-                      </div>
-                    </label>
-                  )}
-
-                  {/* Online Payment (Razorpay simulation) */}
+                  {/* Online Payment (Razorpay simulation) - Displayed FIRST above COD */}
                   {siteSettings?.enableRazorpay !== false && (
                     <label
                       onClick={() => setPaymentMethod("RAZORPAY")}
@@ -490,6 +484,35 @@ export default function CheckoutPage() {
                       </div>
                     </label>
                   )}
+
+                  {/* COD - Displayed below Online Payment */}
+                  {siteSettings?.enableCod !== false && (
+                    <label
+                      onClick={() => setPaymentMethod("COD")}
+                      className={`flex items-start gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                        paymentMethod === "COD"
+                          ? "border-amber-500 bg-amber-50/50 shadow-sm"
+                          : "border-stone-200 hover:border-stone-300"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        checked={paymentMethod === "COD"}
+                        onChange={() => setPaymentMethod("COD")}
+                        className="mt-1"
+                      />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 font-black text-sm text-stone-900">
+                          <Banknote className="w-4 h-4 text-green-700" />
+                          <span>Cash on Delivery (COD)</span>
+                        </div>
+                        <p className="text-xs text-stone-500 mt-1">
+                          Pay in cash or through UPI upon physical package delivery at your doorstep.
+                        </p>
+                      </div>
+                    </label>
+                  )}
                 </div>
               </div>
             </div>
@@ -500,7 +523,7 @@ export default function CheckoutPage() {
                 Order Items ({items.length})
               </h2>
 
-              <div className="divide-y divide-stone-100 max-h-64 overflow-y-auto space-y-3">
+              <div className="divide-y divide-stone-100 max-h-72 overflow-y-auto space-y-3">
                 {items.map((item) => (
                   <div key={item.variantId} className="flex gap-3 pt-3 items-center">
                     <div className="relative w-14 h-14 bg-stone-50 rounded-lg border border-stone-200 overflow-hidden shrink-0 flex items-center justify-center">
@@ -514,7 +537,39 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-xs text-stone-900 line-clamp-1">{item.name}</p>
-                      <p className="text-[11px] text-stone-500">{item.variantLabel} × {item.quantity}</p>
+                      <p className="text-[11px] text-stone-500">{item.variantLabel}</p>
+                      
+                      {/* Interactive Quantity Stepper directly on Checkout */}
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <div className="inline-flex items-center border border-stone-200 rounded-lg bg-stone-50 overflow-hidden">
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                            className="px-2 py-0.5 text-stone-600 hover:bg-stone-200 text-xs font-bold"
+                          >
+                            -
+                          </button>
+                          <span className="px-2 font-bold text-xs text-stone-900 min-w-[18px] text-center">
+                            {item.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                            disabled={item.quantity >= item.stock}
+                            className="px-2 py-0.5 text-stone-600 hover:bg-stone-200 text-xs font-bold disabled:opacity-40"
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.variantId)}
+                          className="text-[11px] text-red-500 hover:text-red-700 hover:underline font-semibold"
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
                     <span className="font-extrabold text-xs text-stone-900">
                       {formatINR(item.price * item.quantity)}

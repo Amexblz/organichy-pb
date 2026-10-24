@@ -25,8 +25,38 @@ export async function POST(req: Request) {
       );
     }
 
+    let detectedCity = "";
+    let detectedState = "";
+
+    // 1. Try real-time official India Post PIN Lookup with 3s timeout
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      const res = await fetch(`https://api.postalpincode.in/pincode/${cleanPin}`, {
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data[0] && data[0].Status === "Success" && data[0].PostOffice && data[0].PostOffice.length > 0) {
+          const po = data[0].PostOffice[0];
+          detectedCity = po.District || po.Name || "";
+          detectedState = po.State || "";
+        }
+      }
+    } catch (e) {
+      // Fallback to local table if offline or slow
+    }
+
+    // 2. Fallback to local metro lookup if external API didn't resolve
     const prefix = cleanPin.substring(0, 3);
     const metroInfo = METRO_PINCODES[prefix];
+
+    if (!detectedCity && metroInfo) {
+      detectedCity = metroInfo.city;
+      detectedState = metroInfo.state;
+    }
 
     const days = metroInfo ? metroInfo.days : 4;
     const estDate = new Date();
@@ -41,7 +71,9 @@ export async function POST(req: Request) {
     return NextResponse.json({
       serviceable: true,
       pincode: cleanPin,
-      location: metroInfo ? `${metroInfo.city}, ${metroInfo.state}` : "India",
+      city: detectedCity,
+      state: detectedState,
+      location: detectedCity ? `${detectedCity}, ${detectedState}` : (metroInfo ? `${metroInfo.city}, ${metroInfo.state}` : "India"),
       estimatedDeliveryDays: days,
       estimatedDeliveryDate: formattedDate,
       codAvailable: true,
