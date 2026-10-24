@@ -145,6 +145,7 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                     sizes="(max-width: 768px) 70vw, 340px"
                     className="object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)]"
                     priority
+                    unoptimized={true}
                   />
                 </div>
 

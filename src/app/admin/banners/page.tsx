@@ -294,6 +294,7 @@ export default function AdminBannersPage() {
                       fill
                       sizes="64px"
                       className="object-contain p-1"
+                      unoptimized={true}
                     />
                   </div>
                   <p className="text-[11px] text-stone-500">Image loaded for banner.</p>
@@ -470,6 +471,7 @@ export default function AdminBannersPage() {
                         fill
                         sizes="80px"
                         className="object-contain p-1"
+                        unoptimized={true}
                       />
                     </div>
                     <p className="text-[11px] text-stone-500">
@@ -572,6 +574,7 @@ export default function AdminBannersPage() {
                     fill
                     sizes="80px"
                     className="object-contain p-1"
+                    unoptimized={true}
                   />
                 </div>
                 <div className="flex-1 min-w-0 space-y-1">
