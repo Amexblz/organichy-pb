@@ -124,15 +124,15 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
               </div>
             </div>
 
-            {/* Hero Visual Image - 50% larger container with full bleed rendering */}
-            <div className="lg:col-span-7 min-w-0 w-full flex justify-center items-center relative py-4">
-              <div className="relative w-full max-w-[460px] sm:max-w-[620px] md:max-w-[720px] lg:max-w-[850px] aspect-[4/3] sm:aspect-[1/1] lg:aspect-[1.1/1] flex items-center justify-center shrink-0">
+            {/* Hero Visual Image - Balanced size (30% reduced from previous jumbo) */}
+            <div className="lg:col-span-7 min-w-0 w-full flex justify-center items-center relative py-2">
+              <div className="relative w-full max-w-[340px] sm:max-w-[460px] md:max-w-[540px] lg:max-w-[620px] aspect-[4/3] sm:aspect-square flex items-center justify-center shrink-0">
                 {/* Outer glowing ring strictly enclosed inside clipped container */}
                 <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                  <div className="w-full h-full rounded-full border-2 border-amber-500/25 animate-spin-slow scale-100" />
+                  <div className="w-full h-full rounded-full border-2 border-amber-500/25 animate-spin-slow scale-95" />
                 </div>
 
-                {/* Product Visual - Enlarged to 150% (50% more) */}
+                {/* Product Visual - Scaled cleanly to fit perfectly */}
                 <div
                   className={`relative w-full h-full drop-shadow-2xl transition-all duration-300 flex items-center justify-center ${
                     isFading ? "opacity-0 scale-95" : "opacity-100 scale-100"
@@ -142,17 +142,17 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                     src={current.image}
                     alt={current.title}
                     fill
-                    sizes="(max-width: 640px) 460px, (max-width: 768px) 620px, (max-width: 1024px) 720px, 850px"
-                    className="object-contain filter drop-shadow-[0_30px_70px_rgba(0,0,0,0.95)] scale-150"
+                    sizes="(max-width: 640px) 340px, (max-width: 768px) 460px, (max-width: 1024px) 540px, 620px"
+                    className="object-contain filter drop-shadow-[0_25px_60px_rgba(0,0,0,0.9)] scale-110"
                     priority
                     unoptimized={true}
                   />
                 </div>
 
                 {/* Float badge */}
-                <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-stone-950/95 border border-amber-500/50 rounded-2xl px-4 py-2 sm:px-5 sm:py-2.5 shadow-2xl backdrop-blur-md pointer-events-none z-20">
-                  <p className="text-[9px] sm:text-[11px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
-                  <p className="text-xl sm:text-3xl font-black text-white">32g Protein</p>
+                <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-stone-950/95 border border-amber-500/50 rounded-2xl px-3.5 py-2 sm:px-4 sm:py-2 shadow-2xl backdrop-blur-md pointer-events-none z-20">
+                  <p className="text-[9px] sm:text-[10px] font-bold text-amber-400 uppercase tracking-wider">Per 100g serving</p>
+                  <p className="text-lg sm:text-2xl font-black text-white">32g Protein</p>
                 </div>
               </div>
             </div>
