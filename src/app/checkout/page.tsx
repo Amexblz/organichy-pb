@@ -21,7 +21,18 @@ const INDIAN_STATES = [
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, subtotal, discount, shippingFee, total, appliedCoupon, clearCart, siteSettings } = useCart();
+  const {
+    items,
+    updateQuantity,
+    removeItem,
+    subtotal,
+    discount,
+    shippingFee,
+    total,
+    appliedCoupon,
+    clearCart,
+    siteSettings,
+  } = useCart();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
