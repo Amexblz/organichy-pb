@@ -10,9 +10,9 @@ export default function Footer() {
   const { siteSettings } = useCart();
 
   const brandName = siteSettings?.siteName ? siteSettings.siteName.split(" ")[0].toUpperCase() : "ORGANICHY";
-  const email = siteSettings?.contactEmail || "care@organichy.com";
-  const phone = siteSettings?.contactPhone || "+91 98765 43210";
-  const address = siteSettings?.contactAddress || "Dr Health Xpert Pvt Ltd, Sector 62, Noida, UP 201309";
+  const email = siteSettings?.contactEmail || "organichypb@gmail.com";
+  const phone = siteSettings?.contactPhone || "+91 7427446941";
+  const address = siteSettings?.contactAddress || "Organichy Food, A-11 Shakti Nagar, Prem Nagar, Linepar, Moradabad - 244001 (U.P.), India";
   const freeThreshold = siteSettings?.freeShippingThreshold || 499;
 
   return (

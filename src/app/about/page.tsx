@@ -20,7 +20,7 @@ export default function AboutPage() {
             Crafting India&apos;s Purest 32g High Protein Peanut Butter
           </h1>
           <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-            At Organichy (Dr Health Xpert Pvt Ltd), we refuse to compromise your health with cheap industrial palm oil or inflated protein claims.
+            At Organichy (Organichy Food), we refuse to compromise your health with cheap industrial palm oil or inflated protein claims.
           </p>
         </div>
 

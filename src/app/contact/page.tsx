@@ -11,9 +11,9 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
 
-  const email = siteSettings?.contactEmail || "care@organichy.com";
-  const phone = siteSettings?.contactPhone || "+91 98765 43210";
-  const address = siteSettings?.contactAddress || "Dr Health Xpert Pvt Ltd, Industrial Area, Sector 62, Noida, Uttar Pradesh, 201309";
+  const email = siteSettings?.contactEmail || "organichypb@gmail.com";
+  const phone = siteSettings?.contactPhone || "+91 7427446941";
+  const address = siteSettings?.contactAddress || "Organichy Food, A-11 Shakti Nagar, Prem Nagar, Linepar, Moradabad - 244001 (U.P.), India";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,10 +48,21 @@ export default function ContactPage() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-white">Registered Corporate Office</p>
-                  <p className="text-stone-400 mt-0.5">
-                    {address}
-                  </p>
+                  <p className="font-bold text-white">Marketed By</p>
+                  <p className="text-stone-300 mt-0.5 font-semibold">Organichy Food</p>
+                  <p className="text-stone-400 mt-0.5">A-11 Shakti Nagar, Prem Nagar, Linepar, Moradabad - 244001 (U.P.), India</p>
+                  <p className="text-amber-400 font-bold text-xs mt-1">FSSAI Lic No: 22725719000592</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-bold text-white">Manufactured By</p>
+                  <p className="text-stone-300 mt-0.5 font-semibold">JUST BITE FOODS</p>
+                  <p className="text-stone-400 mt-0.5">Plot No. 39, Block No. 221, Industrial Society, Village - Masma, Sub District-Olpad, Dist - Surat, Gujarat-394540</p>
+                  <p className="text-amber-400 font-bold text-xs mt-1">FSSAI Lic No: 10721999000720</p>
+                  <p className="text-[11px] text-stone-400 mt-0.5">Certified for: ISO 22000 | GMP | FDA Registered</p>
                 </div>
               </div>
 
@@ -68,6 +79,7 @@ export default function ContactPage() {
                 <div>
                   <p className="font-bold text-white">Phone & WhatsApp Helpdesk</p>
                   <p className="text-stone-400 mt-0.5">{phone}</p>
+                  <p className="text-stone-400 text-xs mt-0.5">Instagram: @organichy_pb</p>
                 </div>
               </div>
 
