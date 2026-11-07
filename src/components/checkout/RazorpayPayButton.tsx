@@ -74,7 +74,7 @@ export default function RazorpayPayButton({
 
       // 3. Open Razorpay Checkout Modal (STEP 2)
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_TxAbhpByD8Gg2B",
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_TxAzIKfsEz5va1",
         amount: orderData.amount,
         currency: orderData.currency || "INR",
         name,

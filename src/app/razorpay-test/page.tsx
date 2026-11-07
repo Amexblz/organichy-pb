@@ -51,7 +51,7 @@ export default function RazorpayTestPage() {
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Key ID:</span>
                 <span className="font-mono text-stone-800">
-                  {process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_TxAbhpByD8Gg2B"}
+                  {process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_TxAzIKfsEz5va1"}
                 </span>
               </div>
               <div className="flex items-center justify-between">

@@ -207,7 +207,7 @@ export default function CheckoutPage() {
           key:
             data.razorpayOrder.key ||
             process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ||
-            "rzp_test_TxAbhpByD8Gg2B",
+            "rzp_test_TxAzIKfsEz5va1",
           amount: data.razorpayOrder.amount, // in paise
           currency: data.razorpayOrder.currency || "INR",
           name: siteSettings?.siteName || "Organichy Peanut Butter",
