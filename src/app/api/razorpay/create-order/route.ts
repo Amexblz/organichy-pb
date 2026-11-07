@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCustomerSession } from "@/lib/auth";
 import { calculateCartTotals } from "@/lib/cart";
-import { createDummyRazorpayOrder, DUMMY_RAZORPAY_KEY_ID } from "@/lib/razorpay";
+import { razorpayInstance, RAZORPAY_KEY_ID } from "@/lib/razorpay";
 
 export async function POST(req: Request) {
   try {
@@ -51,8 +51,37 @@ export async function POST(req: Request) {
     const cleanPhone = rawPhone.replace(/\D/g, "").slice(-10);
     const cleanEmail = (guestEmail || shippingAddress.email || "").trim().toLowerCase();
 
-    // 4. Create dummy Razorpay Order object
-    const razorpayOrder = createDummyRazorpayOrder(calculated.total, orderNumber);
+    const amountInPaise = Math.round(calculated.total * 100);
+    if (amountInPaise < 100) {
+      return NextResponse.json({ error: "Order total must be at least ₹1.00" }, { status: 400 });
+    }
+
+    // 4. Create official Razorpay Order object via Razorpay API
+    let razorpayOrder: any;
+    try {
+      razorpayOrder = await razorpayInstance.orders.create({
+        amount: amountInPaise,
+        currency: "INR",
+        receipt: orderNumber,
+        notes: {
+          orderNumber,
+          customerName: shippingAddress.fullName.trim(),
+          phone: cleanPhone,
+        },
+      });
+    } catch (rzpErr: any) {
+      console.error("Razorpay API order creation failed:", rzpErr);
+      if (rzpErr?.statusCode === 401) {
+        return NextResponse.json(
+          { error: "Razorpay authentication failed. Verify API credentials." },
+          { status: 401 }
+        );
+      }
+      return NextResponse.json(
+        { error: rzpErr?.error?.description || rzpErr?.message || "Failed to initialize Razorpay payment." },
+        { status: 500 }
+      );
+    }
 
     // 5. Store pending order in database
     const createdOrder = await prisma.$transaction(async (tx) => {
@@ -183,7 +212,7 @@ export async function POST(req: Request) {
         id: razorpayOrder.id,
         amount: razorpayOrder.amount,
         currency: razorpayOrder.currency,
-        key: DUMMY_RAZORPAY_KEY_ID,
+        key: RAZORPAY_KEY_ID,
       },
       prefill: {
         name: shippingAddress.fullName,

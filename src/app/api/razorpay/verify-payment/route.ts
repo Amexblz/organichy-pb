@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { verifyDummyRazorpaySignature } from "@/lib/razorpay";
+import { verifyRazorpaySignature } from "@/lib/razorpay";
 
 export async function POST(req: Request) {
   try {
@@ -11,12 +11,19 @@ export async function POST(req: Request) {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      paymentMethodDetail = "UPI",
+      paymentMethodDetail = "ONLINE",
       simulateFailure = false,
     } = body;
 
     if (!orderId && !orderNumber) {
       return NextResponse.json({ error: "Missing order reference" }, { status: 400 });
+    }
+
+    if (!simulateFailure && (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature)) {
+      return NextResponse.json(
+        { error: "Missing required payment fields (razorpay_order_id, razorpay_payment_id, razorpay_signature)" },
+        { status: 400 }
+      );
     }
 
     // Find the order
@@ -74,7 +81,7 @@ export async function POST(req: Request) {
     }
 
     // 2. Verify Razorpay Signature
-    const isValidSignature = verifyDummyRazorpaySignature(
+    const isValidSignature = verifyRazorpaySignature(
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature

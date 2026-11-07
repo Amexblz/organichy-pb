@@ -3,13 +3,27 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { ShieldCheck, Truck, CreditCard, Banknote, ArrowLeft, CheckCircle2, Lock } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import RazorpayModal from "@/components/checkout/RazorpayModal";
 import { useCart } from "@/context/CartContext";
 import { formatINR } from "@/lib/utils";
+
+function loadRazorpayScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined") return resolve(false);
+    if ((window as any).Razorpay) return resolve(true);
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
 
 const INDIAN_STATES = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
@@ -51,16 +65,6 @@ export default function CheckoutPage() {
 
   const [pincodeLoading, setPincodeLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"COD" | "RAZORPAY">("RAZORPAY");
-
-  // Razorpay Dummy Gateway Modal State
-  const [isRazorpayModalOpen, setIsRazorpayModalOpen] = useState(false);
-  const [razorpayOrderData, setRazorpayOrderData] = useState<{
-    orderId: string;
-    orderNumber: string;
-    total: number;
-    razorpayOrderId: string;
-    prefill: { name?: string; email?: string; contact?: string };
-  } | null>(null);
 
   useEffect(() => {
     if (siteSettings?.enableRazorpay !== false) {
@@ -176,8 +180,15 @@ export default function CheckoutPage() {
         guestPhone: formData.phone.trim(),
       };
 
-      // A. Online Payment Flow (Razorpay Dummy Gateway)
+      // A. Online Payment Flow (Razorpay Standard Web Checkout)
       if (paymentMethod === "RAZORPAY") {
+        const isLoaded = await loadRazorpayScript();
+        if (!isLoaded || typeof (window as any).Razorpay === "undefined") {
+          setError("Failed to load Razorpay payment SDK. Please verify your internet connection.");
+          setLoading(false);
+          return;
+        }
+
         const res = await fetch("/api/razorpay/create-order", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -186,21 +197,89 @@ export default function CheckoutPage() {
 
         const data = await res.json();
 
-        if (!res.ok) {
+        if (!res.ok || !data.razorpayOrder) {
           setError(data.error || "Failed to initialize Razorpay payment.");
           setLoading(false);
           return;
         }
 
-        setRazorpayOrderData({
-          orderId: data.orderId,
-          orderNumber: data.orderNumber,
-          total: data.total,
-          razorpayOrderId: data.razorpayOrder.id,
-          prefill: data.prefill,
+        const rzpOptions = {
+          key:
+            data.razorpayOrder.key ||
+            process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ||
+            "rzp_test_TxAbhpByD8Gg2B",
+          amount: data.razorpayOrder.amount, // in paise
+          currency: data.razorpayOrder.currency || "INR",
+          name: siteSettings?.siteName || "Organichy Peanut Butter",
+          description: `Order #${data.orderNumber}`,
+          image: siteSettings?.logoUrl || "/images/branding/logo.png",
+          order_id: data.razorpayOrder.id,
+          prefill: {
+            name: data.prefill?.name || formData.fullName,
+            email: data.prefill?.email || `${cleanPhone}@customer.organichy.com`,
+            contact: data.prefill?.contact || formData.phone,
+          },
+          theme: {
+            color: "#f59e0b",
+          },
+          handler: async function (response: {
+            razorpay_order_id: string;
+            razorpay_payment_id: string;
+            razorpay_signature: string;
+          }) {
+            setLoading(true);
+            try {
+              const verifyRes = await fetch("/api/verify-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  orderId: data.orderId,
+                  orderNumber: data.orderNumber,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                  paymentMethodDetail: "ONLINE",
+                }),
+              });
+
+              const verifyData = await verifyRes.json();
+
+              if (!verifyRes.ok || !verifyData.success) {
+                setError(verifyData.error || "Razorpay payment verification failed.");
+                setLoading(false);
+                return;
+              }
+
+              clearCart();
+              router.push(
+                `/order-success?orderNumber=${encodeURIComponent(data.orderNumber)}&total=${data.total}&method=RAZORPAY&paymentId=${encodeURIComponent(response.razorpay_payment_id)}`
+              );
+            } catch (err: any) {
+              console.error(err);
+              setError("An unexpected error occurred while verifying your payment.");
+              setLoading(false);
+            }
+          },
+          modal: {
+            ondismiss: function () {
+              setLoading(false);
+              setError("Payment was cancelled. You can retry payment whenever you're ready.");
+            },
+          },
+        };
+
+        const rzp = new (window as any).Razorpay(rzpOptions);
+
+        rzp.on("payment.failed", function (response: any) {
+          console.error("Razorpay payment failed:", response.error);
+          setLoading(false);
+          setError(
+            response.error?.description ||
+              "Payment authorization was declined or failed. Please try again."
+          );
         });
-        setIsRazorpayModalOpen(true);
-        setLoading(false);
+
+        rzp.open();
         return;
       }
 
@@ -227,67 +306,6 @@ export default function CheckoutPage() {
       setError("An unexpected error occurred while placing your order.");
       setLoading(false);
     }
-  };
-
-  const handleRazorpaySuccess = async (paymentData: {
-    razorpay_order_id: string;
-    razorpay_payment_id: string;
-    razorpay_signature: string;
-    paymentMethodDetail: string;
-  }) => {
-    if (!razorpayOrderData) return;
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/razorpay/verify-payment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          orderId: razorpayOrderData.orderId,
-          orderNumber: razorpayOrderData.orderNumber,
-          ...paymentData,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Razorpay payment verification failed.");
-        setIsRazorpayModalOpen(false);
-        setLoading(false);
-        return;
-      }
-
-      clearCart();
-      setIsRazorpayModalOpen(false);
-      router.push(
-        `/order-success?orderNumber=${encodeURIComponent(data.orderNumber)}&total=${data.total}&method=RAZORPAY&paymentId=${encodeURIComponent(data.paymentId)}`
-      );
-    } catch (err: any) {
-      console.error(err);
-      setError("An unexpected error occurred while verifying your payment.");
-      setIsRazorpayModalOpen(false);
-      setLoading(false);
-    }
-  };
-
-  const handleRazorpayFailure = async (errorMessage: string) => {
-    if (razorpayOrderData) {
-      try {
-        await fetch("/api/razorpay/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            orderId: razorpayOrderData.orderId,
-            orderNumber: razorpayOrderData.orderNumber,
-            simulateFailure: true,
-          }),
-        });
-      } catch (e) {}
-    }
-    setError(errorMessage);
-    setIsRazorpayModalOpen(false);
-    setLoading(false);
   };
 
   return (
@@ -642,20 +660,11 @@ export default function CheckoutPage() {
         </form>
       </main>
 
-      {/* Razorpay Interactive Dummy Gateway Modal */}
-      {razorpayOrderData && (
-        <RazorpayModal
-          isOpen={isRazorpayModalOpen}
-          onClose={() => setIsRazorpayModalOpen(false)}
-          orderNumber={razorpayOrderData.orderNumber}
-          orderId={razorpayOrderData.orderId}
-          amount={razorpayOrderData.total}
-          razorpayOrderId={razorpayOrderData.razorpayOrderId}
-          prefill={razorpayOrderData.prefill}
-          onSuccess={handleRazorpaySuccess}
-          onFailure={handleRazorpayFailure}
-        />
-      )}
+      {/* Razorpay Standard Checkout SDK */}
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="lazyOnload"
+      />
 
       <Footer />
     </div>
