@@ -28,7 +28,7 @@ export default function VideoAdvertisementShowcase({
   const instagramReels = [
     {
       id: "reel-1",
-      title: "The 32g Protein Drizzle & Crunch Test",
+      title: "The Pure Protein Drizzle & Crunch Test",
       description: "Zero palm oil, thick slow-roasted Saurashtra peanuts crushed to silky crunch.",
       image: "/images/products/organichy-jar.png",
       likes: "4.8K",
@@ -41,7 +41,7 @@ export default function VideoAdvertisementShowcase({
     {
       id: "reel-2",
       title: "Post-Workout Banana & Organichy Muscle Shake",
-      description: "32g clean protein + 0g trans fat. The ultimate anabolic recovery shake.",
+      description: "Pure clean protein + 0g trans fat. The ultimate anabolic recovery shake.",
       image: "/images/products/Chocolate Crunchy Peanut Butter 1 kgCombo Pack.png",
       likes: "6.2K",
       views: "68.9K",
@@ -80,7 +80,7 @@ export default function VideoAdvertisementShowcase({
     {
       id: "8PZq-t8t7u4", // Educational nutrition & fitness review format
       title: "The Ultimate Peanut Butter Guide: Protein, Palm Oil & Nutrition Explained",
-      subtitle: "Why 32g protein per 100g and zero palm oil matters for your health & physique",
+      subtitle: "Why pure protein and zero palm oil matters for your health & physique",
       channel: "Organichy Nutrition Lab",
       duration: "08:45",
       views: "34,200 views",
@@ -301,7 +301,7 @@ export default function VideoAdvertisementShowcase({
                     YOUTUBE SPOTLIGHT
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-stone-950">
-                    Why 32g Protein &amp; Zero Palm Oil Is Essential For Your Health
+                    Why Pure Protein &amp; Zero Palm Oil Is Essential For Your Health
                   </h3>
                   <p className="text-xs sm:text-sm text-stone-600 mt-1">
                     Watch our in-depth nutritional breakdown, athlete tests, and manufacturing standards.

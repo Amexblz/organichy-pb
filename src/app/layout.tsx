@@ -23,8 +23,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Organichy Peanut Butter | India's #1 32g High Protein Peanut Butter",
-  description: "Official online store for Organichy Peanut Butter. 32g pure protein, zero palm oil, 100% slow-roasted runner peanuts with decadent dark chocolate and natural options. Cash on delivery & free shipping across India.",
+  title: "Organichy Peanut Butter | India's Purest High Protein Peanut Butter",
+  description: "Official online store for Organichy Peanut Butter. Pure plant protein, zero palm oil, 100% slow-roasted runner peanuts with decadent dark chocolate and natural options. Cash on delivery & free shipping across India.",
   keywords: "peanut butter, high protein, dark chocolate peanut butter, organic peanut butter, gym supplements, sports nutrition, MyFitness",
   icons: {
     icon: "/images/branding/logo.png",

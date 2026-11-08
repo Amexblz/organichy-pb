@@ -127,7 +127,7 @@ export default function AdminProductsPage() {
                               )}
                               {p.isHighProtein && (
                                 <span className="text-[9px] font-black bg-stone-900 text-amber-400 px-1.5 py-0.2 rounded">
-                                  32G PROTEIN
+                                  HIGH PROTEIN
                                 </span>
                               )}
                             </div>

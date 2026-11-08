@@ -42,7 +42,7 @@ export default function NewProductHighlight() {
                 {/* Floating Protein Badge */}
                 <div className="absolute -top-2 -right-2 sm:top-2 sm:right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-stone-950 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl shadow-xl flex items-center gap-1.5 font-black text-xs sm:text-sm uppercase tracking-wide">
                   <Zap className="w-4 h-4 fill-stone-950" />
-                  <span>32g Protein / 100g</span>
+                  <span>High Protein Blend</span>
                 </div>
 
                 {/* Purity Badge */}
@@ -97,15 +97,15 @@ export default function NewProductHighlight() {
                   ORGANICHY DARK CHOCOLATE CRUNCHY DUO
                 </h2>
                 <p className="text-stone-600 text-xs sm:text-sm font-medium leading-relaxed">
-                  Crafted with 100% Saurashtra slow-roasted peanuts, authentic Belgian dark cocoa, and crunchy roasted peanut chunks. Formulated specifically to deliver 32g muscle-building protein without a drop of hydrogenated palm oil or cheap emulsifiers.
+                  Crafted with 100% Saurashtra slow-roasted peanuts, authentic Belgian dark cocoa, and crunchy roasted peanut chunks. Formulated specifically to deliver rich muscle-building protein without a drop of hydrogenated palm oil or cheap emulsifiers.
                 </p>
               </div>
 
               {/* Nutritional Highlights Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
                 <div className="bg-stone-50 border border-stone-200 rounded-xl p-3 text-center">
-                  <span className="block text-xl sm:text-2xl font-black text-stone-950">32g</span>
-                  <span className="text-[10px] sm:text-xs font-bold text-stone-500 uppercase">Protein / 100g</span>
+                  <span className="block text-xl sm:text-2xl font-black text-stone-950">Rich</span>
+                  <span className="text-[10px] sm:text-xs font-bold text-stone-500 uppercase">Pure Protein</span>
                 </div>
                 <div className="bg-stone-50 border border-stone-200 rounded-xl p-3 text-center">
                   <span className="block text-xl sm:text-2xl font-black text-green-600">0%</span>

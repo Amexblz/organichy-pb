@@ -137,7 +137,7 @@ export default function Header({
                 <Search className="w-5 h-5 text-stone-400 absolute left-4 pointer-events-none" />
                 <input
                   type="text"
-                  placeholder="Search 32g peanut butter, dark chocolate, combos..."
+                  placeholder="Search peanut butter, dark chocolate, combos..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-11 pr-24 py-2.5 sm:py-3 bg-stone-50 hover:bg-white focus:bg-white border-2 border-stone-200 focus:border-amber-500 rounded-full text-xs sm:text-sm font-medium text-stone-900 focus:outline-none transition-all shadow-sm focus:shadow-md focus:ring-2 focus:ring-amber-500/20"
@@ -284,7 +284,7 @@ export default function Header({
               <Search className="w-5 h-5 text-stone-400 absolute left-3.5 pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search peanut butter, dark chocolate, 32g protein..."
+                placeholder="Search peanut butter, dark chocolate, combos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-11 pr-20 py-3 bg-stone-50 border-2 border-stone-200 focus:border-amber-500 focus:bg-white rounded-2xl text-xs sm:text-sm font-medium text-stone-900 focus:outline-none transition-all shadow-sm"
@@ -356,7 +356,7 @@ export default function Header({
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 px-3 rounded-xl hover:bg-amber-50 hover:text-amber-700 flex items-center justify-between text-stone-900"
             >
-              <span>High Protein (32g)</span>
+              <span>High Protein</span>
               <span className="bg-stone-100 text-stone-800 text-[10px] px-2 py-0.5 rounded-full font-bold">⚡ PURE</span>
             </Link>
             <Link

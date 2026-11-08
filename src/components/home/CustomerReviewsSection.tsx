@@ -15,7 +15,7 @@ export default function CustomerReviewsSection() {
       role: "Sports Medicine Physician, Delhi",
       rating: 5,
       title: "Outstanding macro profile & genuine ingredients",
-      comment: "As a sports physician, I closely inspect trans-fat and sodium. Organichy delivers genuine 32g protein per 100g without using cheap palm stearin. Highly recommended to all fitness seekers.",
+      comment: "As a sports physician, I closely inspect trans-fat and sodium. Organichy delivers genuine high protein nutrition without using cheap palm stearin. Highly recommended to all fitness seekers.",
     },
     {
       name: "Pooja Malhotra",

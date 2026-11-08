@@ -79,7 +79,7 @@ export default async function HomePage() {
         {/* 2. Category Navigation Pills */}
         <CategoryPills categories={categories} />
 
-        {/* 3. New Product Highlight Banner (Dark Chocolate Crunchy Duo 32g Protein) */}
+        {/* 3. New Product Highlight Banner (Dark Chocolate Crunchy Duo) */}
         <NewProductHighlight />
 
         {/* 4. Bestsellers Section */}
@@ -92,9 +92,9 @@ export default async function HomePage() {
           bgDark={false}
         />
 
-        {/* 5. High Protein 32g Section */}
+        {/* 5. High Protein Section */}
         <ProductSection
-          title="32G HIGH PROTEIN COLLECTION"
+          title="HIGH PROTEIN COLLECTION"
           subtitle="Maximized biological value to fuel serious muscle gains and recovery"
           badge="⚡ ATHLETE FAVORITE"
           products={highProteinProducts}

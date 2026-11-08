@@ -24,8 +24,8 @@ export default function Footer() {
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-2.5">
               <Award className="w-6 h-6" />
             </div>
-            <h4 className="font-extrabold text-stone-900 text-xs sm:text-sm">32G HIGH PROTEIN</h4>
-            <p className="text-[11px] sm:text-xs text-stone-500 mt-0.5">Highest protein per 100g in its class</p>
+            <h4 className="font-extrabold text-stone-900 text-xs sm:text-sm">HIGH PROTEIN</h4>
+            <p className="text-[11px] sm:text-xs text-stone-500 mt-0.5">Rich natural plant protein for daily fitness</p>
           </div>
           <div className="flex flex-col items-center p-4 bg-white rounded-2xl border border-stone-200/90 shadow-sm">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-2.5">
@@ -102,7 +102,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/collections/high-protein" prefetch={true} className="hover:text-amber-700 transition-colors">
-                  High Protein (32g)
+                  High Protein
                 </Link>
               </li>
               <li>

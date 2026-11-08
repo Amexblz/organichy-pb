@@ -32,7 +32,7 @@ export default function AboutPage() {
             OUR STORY &amp; MISSION
           </span>
           <h1 className="text-3xl sm:text-5xl font-black text-stone-900 tracking-tight">
-            Crafting India&apos;s Purest 32g High Protein Peanut Butter
+            Crafting India&apos;s Purest High Protein Peanut Butter
           </h1>
           <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
             At Organichy (Organichy Food), we refuse to compromise your health with cheap industrial palm oil or inflated protein claims.
@@ -58,7 +58,7 @@ export default function AboutPage() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
-                <span>True 32g Protein</span>
+                <span>Pure Plant Protein</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
@@ -116,7 +116,7 @@ export default function AboutPage() {
               <div className="relative py-2">
                 <Quote className="w-8 h-8 text-amber-400/40 absolute -top-1 -left-2 rotate-180 -z-0" />
                 <p className="text-xs sm:text-sm text-stone-700 leading-relaxed italic relative z-10">
-                  &ldquo;When we founded Organichy, we set one non-negotiable rule: if we wouldn&apos;t feed it to our own families before a grueling workout, it would never leave our facility. Every spoon contains 100% slow-roasted Saurashtra runner peanuts, genuine 32g protein, and zero hydrogenated industrial palm oil.&rdquo;
+                  &ldquo;When we founded Organichy, we set one non-negotiable rule: if we wouldn&apos;t feed it to our own families before a grueling workout, it would never leave our facility. Every spoon contains 100% slow-roasted Saurashtra runner peanuts, genuine pure protein, and zero hydrogenated industrial palm oil.&rdquo;
                 </p>
               </div>
 
@@ -278,7 +278,7 @@ export default function AboutPage() {
             <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center mx-auto mb-3 font-black text-lg border border-amber-200">
               2
             </div>
-            <h3 className="font-extrabold text-sm text-stone-900 uppercase">32g High Protein</h3>
+            <h3 className="font-extrabold text-sm text-stone-900 uppercase">High Protein</h3>
             <p className="text-xs text-stone-500">The highest natural biological value protein per 100g in Indian D2C.</p>
           </div>
           <div className="bg-white p-6 rounded-2xl border border-stone-200 text-center space-y-2 shadow-sm">

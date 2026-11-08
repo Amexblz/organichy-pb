@@ -36,7 +36,7 @@ export default function NutritionShowcase() {
                   <div className="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
-                  <span><strong className="text-stone-950 font-extrabold">32g Pure Protein</strong> per 100g serving with rich natural BCAAs</span>
+                  <span><strong className="text-stone-950 font-extrabold">Rich Pure Protein</strong> with essential natural BCAAs</span>
                 </li>
                 <li className="flex items-center gap-3 text-stone-800">
                   <div className="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center shrink-0">
@@ -69,7 +69,7 @@ export default function NutritionShowcase() {
                   <div className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0">
                     <X className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
-                  <span>Only 24g - 26g protein, diluted with cheap emulsifiers</span>
+                  <span>Lower protein content diluted with cheap emulsifiers</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0">

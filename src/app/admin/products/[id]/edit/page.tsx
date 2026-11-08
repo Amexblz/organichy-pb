@@ -216,7 +216,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                 checked={form.isHighProtein}
                 onChange={(e) => setForm({ ...form, isHighProtein: e.target.checked })}
               />
-              <span>High Protein Badge (32g)</span>
+              <span>High Protein Badge</span>
             </label>
             <label className="flex items-center gap-2 font-bold text-stone-700 cursor-pointer">
               <input

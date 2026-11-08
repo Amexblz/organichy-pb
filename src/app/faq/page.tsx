@@ -15,7 +15,7 @@ export default function FAQPage() {
     },
     {
       q: "How much protein does one serving deliver?",
-      a: "Each 32g serving (approximately 2 level tablespoons) delivers over 10g of clean, high-biological-value protein. Our Dark Chocolate Crunchy provides 32g of pure protein per 100g, making it ideal for muscle repair and high-energy breakfasts.",
+      a: "Each standard serving (approximately 2 level tablespoons) delivers clean, high-biological-value protein, making it ideal for muscle repair, sustained energy, and healthy fitness breakfasts.",
     },
     {
       q: "Does Organichy use palm oil, hydrogenated fats, or trans fats?",

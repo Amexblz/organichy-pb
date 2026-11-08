@@ -31,7 +31,7 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
           {
             id: "fallback-1",
             title: "INDIA'S PUREST DARK CHOCOLATE PEANUT BUTTER",
-            subtitle: "32g High Protein per 100g | 100% Roasted Peanuts | Zero Palm Oil & No Preservatives",
+            subtitle: "High Protein | 100% Roasted Peanuts | Zero Palm Oil & No Preservatives",
             image: "/images/products/organichy-tub-front.png",
             link: "/shop?flavor=Dark+Chocolate",
             ctaText: "SHOP DARK CHOCOLATE",
@@ -216,7 +216,7 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
                 🚫 0% Palm Oil
               </span>
               <span className="flex items-center gap-1.5 bg-amber-100/80 text-amber-950 px-3 py-1.5 rounded-full border border-amber-300 shadow-sm whitespace-nowrap">
-                ⚡ 32g Protein / 100g
+                ⚡ High Plant Protein
               </span>
             </div>
 
@@ -264,8 +264,8 @@ export default function HeroCarousel({ banners }: { banners: BannerType[] }) {
 
               {/* Float badge */}
               <div className="absolute bottom-4 sm:bottom-6 right-2 sm:right-4 bg-white/95 border border-amber-300/80 rounded-xl px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-2xl backdrop-blur-md pointer-events-none z-20">
-                <p className="text-[9px] sm:text-[10px] font-black text-amber-700 uppercase tracking-wider">Per 100g serving</p>
-                <p className="text-base sm:text-xl font-black text-stone-950">32g Protein</p>
+                <p className="text-[9px] sm:text-[10px] font-black text-amber-700 uppercase tracking-wider">Zero Palm Oil</p>
+                <p className="text-base sm:text-xl font-black text-stone-950">100% Roasted</p>
               </div>
             </div>
           </div>
