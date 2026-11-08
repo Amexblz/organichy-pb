@@ -91,7 +91,9 @@ export default function AddressesPage() {
           <h3 className="font-extrabold text-sm text-stone-900 uppercase">New Address Details</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="block font-bold text-stone-700 mb-1">Full Name *</label>
+              <label className="block font-bold text-stone-700 mb-1">
+                Full Name <span className="text-red-500 font-bold">*</span>
+              </label>
               <input
                 type="text"
                 required
@@ -101,7 +103,9 @@ export default function AddressesPage() {
               />
             </div>
             <div>
-              <label className="block font-bold text-stone-700 mb-1">Phone Number *</label>
+              <label className="block font-bold text-stone-700 mb-1">
+                Phone Number <span className="text-red-500 font-bold">*</span>
+              </label>
               <input
                 type="tel"
                 required
@@ -111,7 +115,9 @@ export default function AddressesPage() {
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="block font-bold text-stone-700 mb-1">Address Line 1 *</label>
+              <label className="block font-bold text-stone-700 mb-1">
+                Address Line 1 <span className="text-red-500 font-bold">*</span>
+              </label>
               <input
                 type="text"
                 required
@@ -132,7 +138,9 @@ export default function AddressesPage() {
               />
             </div>
             <div>
-              <label className="block font-bold text-stone-700 mb-1">City *</label>
+              <label className="block font-bold text-stone-700 mb-1">
+                City <span className="text-red-500 font-bold">*</span>
+              </label>
               <input
                 type="text"
                 required
@@ -142,7 +150,9 @@ export default function AddressesPage() {
               />
             </div>
             <div>
-              <label className="block font-bold text-stone-700 mb-1">PIN Code *</label>
+              <label className="block font-bold text-stone-700 mb-1">
+                PIN Code <span className="text-red-500 font-bold">*</span>
+              </label>
               <input
                 type="text"
                 maxLength={6}

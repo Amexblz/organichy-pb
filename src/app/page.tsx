@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/layout/CartDrawer";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import CategoryPills from "@/components/home/CategoryPills";
+import NewProductHighlight from "@/components/home/NewProductHighlight";
 import ProductSection from "@/components/home/ProductSection";
 import NutritionShowcase from "@/components/home/NutritionShowcase";
 import CustomerReviewsSection from "@/components/home/CustomerReviewsSection";
@@ -72,47 +73,52 @@ export default async function HomePage() {
       <CartDrawer />
 
       <main className="flex-1 w-full max-w-full min-w-0 overflow-x-hidden">
-        {/* 1. Hero Carousel */}
+        {/* 1. Hero Carousel (Light Luxury Theme with Touch Swipe) */}
         <HeroCarousel banners={banners} />
 
         {/* 2. Category Navigation Pills */}
         <CategoryPills categories={categories} />
 
-        {/* 3. Bestsellers Section */}
+        {/* 3. New Product Highlight Banner (Dark Chocolate Crunchy Duo 32g Protein) */}
+        <NewProductHighlight />
+
+        {/* 4. Bestsellers Section */}
         <ProductSection
           title="BEST SELLERS"
           subtitle="The nation's most loved peanut butter blends trusted by thousands daily"
           badge="🔥 MOST POPULAR"
           products={bestSellers}
           viewAllLink="/shop?sort=bestseller"
+          bgDark={false}
         />
 
-        {/* 4. High Protein 32g Section */}
+        {/* 5. High Protein 32g Section */}
         <ProductSection
           title="32G HIGH PROTEIN COLLECTION"
           subtitle="Maximized biological value to fuel serious muscle gains and recovery"
           badge="⚡ ATHLETE FAVORITE"
           products={highProteinProducts}
           viewAllLink="/collections/high-protein"
-          bgDark={true}
+          bgDark={false}
         />
 
-        {/* 5. Dark Chocolate Collection */}
+        {/* 6. Dark Chocolate Collection */}
         <ProductSection
           title="DARK CHOCOLATE INDULGENCE"
           subtitle="Real Belgian roasted cocoa with crunch in every bite. Zero added guilt."
           badge="🍫 RICH & DECADENT"
           products={chocolateProducts}
           viewAllLink="/collections/chocolate-collection"
+          bgDark={false}
         />
 
-        {/* 6. Nutrition Showcase & Comparison */}
+        {/* 7. Nutrition Showcase & Comparison (Light Scientific Aesthetic) */}
         <NutritionShowcase />
 
-        {/* 7. Verified Athlete & Customer Reviews */}
+        {/* 8. Verified Athlete & Customer Reviews */}
         <CustomerReviewsSection />
 
-        {/* 8. Product Advertisement Videos Loop */}
+        {/* 9. Instagram Reels & YouTube Video Showcase */}
         <VideoAdvertisementShowcase initialVideos={advertisementVideos} />
       </main>
 

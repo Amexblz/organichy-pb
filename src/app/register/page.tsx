@@ -89,7 +89,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                Full Name *
+                Full Name <span className="text-red-500 font-bold">*</span>
               </label>
               <div className="relative">
                 <input
@@ -107,7 +107,7 @@ export default function RegisterPage() {
 
             <div>
               <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                Email Address *
+                Email Address <span className="text-red-500 font-bold">*</span>
               </label>
               <div className="relative">
                 <input
@@ -142,7 +142,7 @@ export default function RegisterPage() {
 
             <div>
               <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
-                Password (min 6 characters) *
+                Password (min 6 characters) <span className="text-red-500 font-bold">*</span>
               </label>
               <div className="relative">
                 <input

@@ -349,7 +349,7 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1">
-                      Full Name *
+                      Full Name <span className="text-red-500 font-bold">*</span>
                     </label>
                     <input
                       type="text"
@@ -364,7 +364,7 @@ export default function CheckoutPage() {
 
                   <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1">
-                      Mobile Number (10 digits for delivery updates) *
+                      Mobile Number (10 digits for delivery updates) <span className="text-red-500 font-bold">*</span>
                     </label>
                     <input
                       type="tel"
@@ -390,7 +390,7 @@ export default function CheckoutPage() {
 
                 <div>
                   <label className="block text-xs font-bold text-stone-700 mb-1">
-                    Flat, House no., Building, Company, Apartment *
+                    Flat, House no., Building, Company, Apartment <span className="text-red-500 font-bold">*</span>
                   </label>
                   <input
                     type="text"
@@ -420,7 +420,7 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1 flex items-center justify-between">
-                      <span>PIN Code *</span>
+                      <span>PIN Code <span className="text-red-500 font-bold">*</span></span>
                       {pincodeLoading && (
                         <span className="text-[10px] text-amber-600 font-normal animate-pulse">Auto-fetching...</span>
                       )}
@@ -439,7 +439,7 @@ export default function CheckoutPage() {
 
                   <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1">
-                      City / District *
+                      City / District <span className="text-red-500 font-bold">*</span>
                     </label>
                     <input
                       type="text"
@@ -454,7 +454,7 @@ export default function CheckoutPage() {
 
                   <div>
                     <label className="block text-xs font-bold text-stone-700 mb-1">
-                      State *
+                      State <span className="text-red-500 font-bold">*</span>
                     </label>
                     <select
                       name="state"

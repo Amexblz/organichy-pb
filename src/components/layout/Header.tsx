@@ -85,13 +85,13 @@ export default function Header({
 
   return (
     <header className="w-full sticky top-0 z-40 bg-white border-b border-stone-200 transition-all duration-200">
-      {/* 1. Global Announcement Bar (dynamically controlled via Admin settings) */}
+      {/* 1. Global Announcement Bar (Light & Warm Amber Accent) */}
       {isAnnouncementActive && announcementText && (
-        <div className="bg-stone-950 text-amber-400 text-xs sm:text-sm font-semibold tracking-wide py-2 px-4 text-center overflow-hidden">
-          <div className="flex items-center justify-center gap-2 animate-pulse">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <span className="truncate">{announcementText}</span>
-            <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+        <div className="bg-amber-500 text-stone-950 text-xs sm:text-sm font-bold tracking-wide py-2 px-4 text-center overflow-hidden border-b border-amber-600/20 shadow-sm">
+          <div className="flex items-center justify-center gap-2">
+            <Sparkles className="w-3.5 h-3.5 text-stone-950 shrink-0" />
+            <span className="truncate font-extrabold">{announcementText}</span>
+            <Sparkles className="w-3.5 h-3.5 text-stone-950 shrink-0" />
           </div>
         </div>
       )}
@@ -99,14 +99,21 @@ export default function Header({
       {/* 2. Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
-          {/* Mobile menu button */}
+          {/* Mobile hamburger menu button */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-stone-800 hover:bg-stone-100 transition-colors"
+            className="md:hidden flex items-center gap-1.5 p-2 sm:px-3 sm:py-2 rounded-xl text-stone-900 bg-stone-100 hover:bg-amber-50 hover:border-amber-400 border border-stone-200 transition-all shadow-sm active:scale-95"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5 text-stone-900" />
+            ) : (
+              <Menu className="w-5 h-5 text-stone-900" />
+            )}
+            <span className="text-[11px] font-black uppercase tracking-wider hidden xs:inline">
+              MENU
+            </span>
           </button>
 
           {/* Brand Logo */}
@@ -123,46 +130,46 @@ export default function Header({
             </div>
           </Link>
 
+          {/* Big Search Bar - Desktop */}
+          <div className="hidden md:flex flex-1 max-w-md lg:max-w-xl mx-2 lg:mx-4 relative">
+            <form onSubmit={handleSearchSubmit} className="w-full">
+              <div className="relative flex items-center">
+                <Search className="w-5 h-5 text-stone-400 absolute left-4 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search 32g peanut butter, dark chocolate, combos..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-11 pr-24 py-2.5 sm:py-3 bg-stone-50 hover:bg-white focus:bg-white border-2 border-stone-200 focus:border-amber-500 rounded-full text-xs sm:text-sm font-medium text-stone-900 focus:outline-none transition-all shadow-sm focus:shadow-md focus:ring-2 focus:ring-amber-500/20"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-2 bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs uppercase px-3 py-1.5 sm:py-2 rounded-full transition-all shadow-sm"
+                >
+                  SEARCH
+                </button>
+              </div>
+            </form>
+          </div>
+
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-bold text-stone-800">
+          <nav className="hidden xl:flex items-center gap-6 text-xs sm:text-sm font-bold text-stone-800">
             <Link href="/shop" prefetch={true} className="hover:text-amber-600 transition-colors">
               ALL PRODUCTS
             </Link>
             <Link href="/collections/chocolate-collection" prefetch={true} className="hover:text-amber-600 transition-colors flex items-center gap-1">
               DARK CHOCOLATE
-              <span className="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">
+              <span className="bg-amber-100 text-amber-900 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">
                 HOT
               </span>
             </Link>
             <Link href="/collections/high-protein" prefetch={true} className="hover:text-amber-600 transition-colors">
               HIGH PROTEIN
             </Link>
-            <Link href="/collections/natural-organic" prefetch={true} className="hover:text-amber-600 transition-colors">
-              100% NATURAL
-            </Link>
-            <Link href="/collections/combos" prefetch={true} className="hover:text-amber-600 transition-colors">
-              COMBOS & SAVER
-            </Link>
-            <Link href="/about" prefetch={true} className="hover:text-amber-600 transition-colors text-stone-500 font-medium">
+            <Link href="/about" prefetch={true} className="hover:text-amber-600 transition-colors text-stone-600 font-medium">
               OUR STORY
             </Link>
           </nav>
-
-          {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-xs lg:max-w-sm relative">
-            <form onSubmit={handleSearchSubmit} className="w-full">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search peanut butter, chocolate, combos..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-stone-100 hover:bg-stone-50 focus:bg-white border border-stone-200 focus:border-amber-500 rounded-full text-xs sm:text-sm text-stone-800 focus:outline-none transition-all shadow-inner"
-                />
-                <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              </div>
-            </form>
-          </div>
 
           {/* Action Icons */}
           <div className="flex items-center gap-1.5 sm:gap-4">
@@ -270,108 +277,149 @@ export default function Header({
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
-        <div className="md:hidden pb-3">
+        {/* Big Mobile Search Bar */}
+        <div className="md:hidden pb-3 pt-1">
           <form onSubmit={handleSearchSubmit} className="w-full">
-            <div className="relative">
+            <div className="relative flex items-center">
+              <Search className="w-5 h-5 text-stone-400 absolute left-3.5 pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search products, protein oats, chocolate..."
+                placeholder="Search peanut butter, dark chocolate, 32g protein..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 bg-stone-100 border border-stone-200 rounded-full text-xs text-stone-800 focus:outline-none focus:border-amber-500"
+                className="w-full pl-11 pr-20 py-3 bg-stone-50 border-2 border-stone-200 focus:border-amber-500 focus:bg-white rounded-2xl text-xs sm:text-sm font-medium text-stone-900 focus:outline-none transition-all shadow-sm"
               />
-              <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <button
+                type="submit"
+                className="absolute right-2 bg-amber-500 text-stone-950 font-black text-[11px] uppercase px-3 py-1.5 rounded-xl transition-all shadow-sm active:scale-95"
+              >
+                FIND
+              </button>
             </div>
           </form>
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu - Clean, Light Aesthetic */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-stone-900 text-white px-6 py-6 border-t border-stone-800 space-y-4">
-          <div className="pb-3 border-b border-stone-800">
-            <div className="relative h-12 w-44">
+        <div className="md:hidden bg-white text-stone-900 px-5 py-6 border-t border-stone-200 shadow-2xl space-y-4 animate-in slide-in-from-top-2 duration-200">
+          <div className="pb-3 border-b border-stone-100 flex items-center justify-between">
+            <div className="relative h-11 w-40">
               <Image
                 src={siteSettings.logoUrl || "/images/branding/logo.png"}
                 alt={siteSettings.siteName || "Organichy"}
                 fill
-                sizes="176px"
-                className="object-contain object-left filter brightness-110"
+                sizes="160px"
+                className="object-contain object-left"
               />
             </div>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-1.5 rounded-lg text-stone-500 hover:text-stone-900 hover:bg-stone-100"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <div className="grid grid-cols-1 gap-3 font-bold text-sm tracking-wide">
+
+          <div className="grid grid-cols-1 gap-1.5 font-bold text-sm tracking-wide">
             <Link
               href="/"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+              className="py-2.5 px-3 rounded-xl hover:bg-amber-50 hover:text-amber-700 flex items-center justify-between text-stone-900"
             >
-              <span>HOME</span>
+              <span>Home</span>
               <span>🏠</span>
             </Link>
             <Link
               href="/shop"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+              className="py-2.5 px-3 rounded-xl hover:bg-amber-50 hover:text-amber-700 flex items-center justify-between text-stone-900"
             >
-              <span>ALL PRODUCTS</span>
-              <span>→</span>
+              <span>All Products</span>
+              <span className="text-stone-400">→</span>
             </Link>
             <Link
               href="/collections/chocolate-collection"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+              className="py-2.5 px-3 rounded-xl bg-amber-50/70 border border-amber-200/60 hover:bg-amber-100 text-stone-900 flex items-center justify-between"
             >
-              <span>DARK CHOCOLATE COLLECTION</span>
-              <span className="bg-amber-500 text-stone-950 text-[10px] px-2 py-0.5 rounded-full font-bold">HOT</span>
+              <span>Dark Chocolate Collection</span>
+              <span className="bg-amber-500 text-stone-950 text-[10px] px-2 py-0.5 rounded-full font-black">HOT</span>
             </Link>
             <Link
               href="/collections/high-protein"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+              className="py-2.5 px-3 rounded-xl hover:bg-amber-50 hover:text-amber-700 flex items-center justify-between text-stone-900"
             >
-              <span>HIGH PROTEIN (32G)</span>
-              <span>→</span>
+              <span>High Protein (32g)</span>
+              <span className="bg-stone-100 text-stone-800 text-[10px] px-2 py-0.5 rounded-full font-bold">⚡ PURE</span>
             </Link>
             <Link
               href="/collections/natural-organic"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+              className="py-2.5 px-3 rounded-xl hover:bg-amber-50 hover:text-amber-700 flex items-center justify-between text-stone-900"
             >
-              <span>100% NATURAL & KETO</span>
-              <span>→</span>
+              <span>100% Natural &amp; Keto</span>
+              <span className="text-stone-400">→</span>
             </Link>
             <Link
               href="/collections/combos"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between"
+              className="py-2.5 px-3 rounded-xl hover:bg-amber-50 hover:text-amber-700 flex items-center justify-between text-stone-900"
             >
-              <span>COMBO PACKS</span>
-              <span>→</span>
+              <span>Combo Packs &amp; Savers</span>
+              <span className="text-stone-400">→</span>
             </Link>
             <Link
               href="/track-order"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-stone-800 hover:text-amber-400 flex items-center justify-between text-stone-300"
+              className="py-2.5 px-3 rounded-xl hover:bg-stone-100 flex items-center justify-between text-stone-700"
             >
-              <span>TRACK ORDER</span>
+              <span>Track Order</span>
               <span>📦</span>
             </Link>
             <Link
               href="/about"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-amber-400 text-stone-300"
+              className="py-2.5 px-3 rounded-xl hover:bg-stone-100 flex items-center justify-between text-stone-700"
             >
-              OUR STORY
+              <span>Our Story &amp; Founder</span>
+              <span>🌿</span>
+            </Link>
+            <Link
+              href="/contact"
+              prefetch={true}
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2.5 px-3 rounded-xl hover:bg-stone-100 flex items-center justify-between text-stone-700"
+            >
+              <span>Contact Support</span>
+              <span>💬</span>
+            </Link>
+          </div>
+
+          <div className="pt-3 border-t border-stone-100 flex items-center gap-3">
+            <Link
+              href="/account/wishlist"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-center font-bold text-xs"
+            >
+              Wishlist ({wishlist.length})
+            </Link>
+            <Link
+              href={currentUser ? "/account" : "/login"}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-stone-950 rounded-xl text-center font-black text-xs uppercase"
+            >
+              {currentUser ? "My Account" : "Sign In"}
             </Link>
           </div>
         </div>

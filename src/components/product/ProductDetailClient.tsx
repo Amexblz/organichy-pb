@@ -113,7 +113,7 @@ export default function ProductDetailClient({ product }: { product: any }) {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start pb-24 md:pb-8">
       {/* Left Column: Image Gallery (5 cols) */}
       <div className="lg:col-span-5 space-y-4">
         {/* Main Display Image */}
@@ -451,6 +451,44 @@ export default function ProductDetailClient({ product }: { product: any }) {
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Sticky Mobile "Buy Now" Action Bar (Remains on hold / fixed at bottom on mobile screens) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 shadow-[0_-8px_25px_rgba(0,0,0,0.12)] flex items-center justify-between gap-3 animate-in slide-in-from-bottom duration-200">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xl font-black text-stone-950">
+              {formatINR(activeVariant.price * quantity)}
+            </span>
+            {activeVariant.mrp > activeVariant.price && (
+              <span className="text-xs text-stone-400 line-through font-semibold">
+                {formatINR(activeVariant.mrp * quantity)}
+              </span>
+            )}
+          </div>
+          <p className="text-[11px] text-amber-800 font-bold truncate">
+            {activeVariant.weight} • {quantity > 1 ? `Qty: ${quantity}` : "Free Express Delivery"}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={handleAddToCart}
+            disabled={isOutOfStock}
+            className="p-3 bg-stone-100 hover:bg-stone-200 active:bg-stone-300 text-stone-800 rounded-xl transition-all border border-stone-300 active:scale-95 disabled:opacity-40"
+            aria-label="Add to cart"
+          >
+            <ShoppingCart className="w-4 h-4 text-stone-800" />
+          </button>
+          <button
+            onClick={handleBuyNow}
+            disabled={isOutOfStock}
+            className="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-stone-950 font-black text-xs uppercase px-5 py-3 rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-1.5 disabled:opacity-40 tracking-wider"
+          >
+            <Zap className="w-3.5 h-3.5 fill-stone-950" />
+            <span>BUY NOW</span>
+          </button>
         </div>
       </div>
     </div>

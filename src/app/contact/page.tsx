@@ -38,61 +38,62 @@ export default function ContactPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-          {/* Contact Details (5 cols) */}
-          <div className="md:col-span-5 bg-stone-900 text-white p-6 sm:p-8 rounded-3xl space-y-6 shadow-sm">
-            <h3 className="font-black text-lg text-amber-400 uppercase tracking-tight">
+          {/* Contact Details (5 cols) - Light Theme */}
+          <div className="md:col-span-5 bg-gradient-to-br from-amber-50/80 via-white to-stone-50 border border-amber-200/70 text-stone-900 p-6 sm:p-8 rounded-3xl space-y-6 shadow-sm">
+            <h3 className="font-black text-lg text-stone-950 uppercase tracking-tight flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
               Direct Contact Channels
             </h3>
 
             <div className="space-y-4 text-xs sm:text-sm">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-white">Marketed By</p>
-                  <p className="text-stone-300 mt-0.5 font-semibold">Organichy Food</p>
-                  <p className="text-stone-400 mt-0.5">A-11 Shakti Nagar, Prem Nagar, Linepar, Moradabad - 244001 (U.P.), India</p>
-                  <p className="text-amber-400 font-bold text-xs mt-1">FSSAI Lic No: 22725719000592</p>
+                  <p className="font-bold text-stone-900">Marketed By</p>
+                  <p className="text-stone-700 mt-0.5 font-semibold">Organichy Food</p>
+                  <p className="text-stone-600 mt-0.5">A-11 Shakti Nagar, Prem Nagar, Linepar, Moradabad - 244001 (U.P.), India</p>
+                  <p className="text-amber-800 font-bold text-xs mt-1">FSSAI Lic No: 22725719000592</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-white">Manufactured By</p>
-                  <p className="text-stone-300 mt-0.5 font-semibold">JUST BITE FOODS</p>
-                  <p className="text-stone-400 mt-0.5">Plot No. 39, Block No. 221, Industrial Society, Village - Masma, Sub District-Olpad, Dist - Surat, Gujarat-394540</p>
-                  <p className="text-amber-400 font-bold text-xs mt-1">FSSAI Lic No: 10721999000720</p>
-                  <p className="text-[11px] text-stone-400 mt-0.5">Certified for: ISO 22000 | GMP | FDA Registered</p>
+                  <p className="font-bold text-stone-900">Manufactured By</p>
+                  <p className="text-stone-700 mt-0.5 font-semibold">JUST BITE FOODS</p>
+                  <p className="text-stone-600 mt-0.5">Plot No. 39, Block No. 221, Industrial Society, Village - Masma, Sub District-Olpad, Dist - Surat, Gujarat-394540</p>
+                  <p className="text-amber-800 font-bold text-xs mt-1">FSSAI Lic No: 10721999000720</p>
+                  <p className="text-[11px] text-stone-500 mt-0.5">Certified for: ISO 22000 | GMP | FDA Registered</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <Mail className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-white">Email Support</p>
-                  <p className="text-stone-400 mt-0.5">{email}</p>
+                  <p className="font-bold text-stone-900">Email Support</p>
+                  <p className="text-stone-700 mt-0.5 font-medium">{email}</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <Phone className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-white">Phone & WhatsApp Helpdesk</p>
-                  <p className="text-stone-400 mt-0.5">{phone}</p>
-                  <p className="text-stone-400 text-xs mt-0.5">Instagram: @organichy_pb</p>
+                  <p className="font-bold text-stone-900">Phone & WhatsApp Helpdesk</p>
+                  <p className="text-stone-700 mt-0.5 font-medium">{phone}</p>
+                  <p className="text-amber-700 font-semibold text-xs mt-0.5">Instagram: @organichy_pb</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-white">Operating Hours</p>
-                  <p className="text-stone-400 mt-0.5">Monday to Saturday: 9:30 AM to 6:30 PM IST</p>
+                  <p className="font-bold text-stone-900">Operating Hours</p>
+                  <p className="text-stone-600 mt-0.5">Monday to Saturday: 9:30 AM to 6:30 PM IST</p>
                 </div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-stone-800 text-[11px] text-stone-400">
+            <div className="pt-4 border-t border-amber-200/50 text-[11px] text-stone-500 font-medium">
               ⚡ National Hubs: Bengaluru (South) | Noida (North) | Mumbai (West)
             </div>
           </div>
@@ -115,25 +116,29 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">Your Name *</label>
+                    <label className="block font-bold text-stone-700 mb-1">
+                      Your Name <span className="text-red-500 font-bold">*</span>
+                    </label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Sourav Sharma"
-                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white"
+                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
                   </div>
                   <div>
-                    <label className="block font-bold text-stone-700 mb-1">Email Address *</label>
+                    <label className="block font-bold text-stone-700 mb-1">
+                      Email Address <span className="text-red-500 font-bold">*</span>
+                    </label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="name@example.com"
-                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white"
+                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
                   </div>
                 </div>
@@ -146,7 +151,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white"
+                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
                   </div>
                   <div>
@@ -156,20 +161,22 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       placeholder="Order Inquiry / Bulk Gym Order"
-                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white"
+                      className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                     />
                   </div>
                 </div>
 
                 <div className="text-xs">
-                  <label className="block font-bold text-stone-700 mb-1">How can we assist you? *</label>
+                  <label className="block font-bold text-stone-700 mb-1">
+                    How can we assist you? <span className="text-red-500 font-bold">*</span>
+                  </label>
                   <textarea
                     rows={4}
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Provide details about your query..."
-                    className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white"
+                    className="w-full px-3 py-2.5 border border-stone-300 rounded-xl bg-white focus:outline-none focus:border-amber-500"
                   />
                 </div>
 
